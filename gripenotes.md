@@ -28,3 +28,10 @@ Also, should I include `"externally_connectable": {"ids": []}` in manifest.json 
 - Messaging between content script and components now working!
 
 Turned out the right formula was to use `chrome.tabs.sendMessage(<tabId>, <message>)` from the content script to the background script, and then `chrome.runtime.onMessage.addListener` in the background script to send the message to the components.
+
+Next, I need to build the simplest version of the automation tool:
+- collect data as clippings
+  - start with text-only clipping
+- save clippings to a collection
+- chat with one or more collections
+
