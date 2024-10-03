@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { createRoot } from 'react-dom/client';
-import { CommsTestWidget } from "./components/CommsTestWidget";
-import { TextClippingEditor } from "./views/TextClippingEditor";
-import type { TextClipping } from "./storage/storage.types";
+import { CommsTestWidget } from "../../components/CommsTestWidget";
+import { TextClippingEditor } from "../../views/TextClippingEditor";
+import type { TextClipping } from "../../storage/storage.types";
 
 // Render your React component instead
 const rootElem = document.getElementById('out');

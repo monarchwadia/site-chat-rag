@@ -1,5 +1,5 @@
 import { liveQuery } from "dexie";
-import { db } from "./storage/db";
+import { db } from "../../storage/db";
 
 (function contentScript() {
     console.log('Content script loaded!') // TODO: remove

@@ -5,13 +5,13 @@
     "manifest_version": 3,
     "minimum_chrome_version": "120",
     "chrome_url_overrides": {
-        "newtab": "newtab.html"
+        "newtab": "entrypoints/newtab/newtab.html"
     },
     "side_panel": {
-        "default_path": "sidebar.html"
+        "default_path": "entrypoints/sidebar/sidebar.html"
     },
     "action": {
-        "default_popup": "popup.html"
+        "default_popup": "entrypoints/popup/popup.html"
     },
     "content_scripts": [
         {
@@ -19,7 +19,7 @@
                 "<all_urls>"
             ],
             "js": [
-                "content.js"
+                "entrypoints/content/content.js"
             ]
         }
     ],
