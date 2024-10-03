@@ -12,6 +12,8 @@
   "license": "ISC",
   "devDependencies": {
     "@rollup/plugin-typescript": "^12.1.0",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0",
     "autoprefixer": "^10.4.20",
     "daisyui": "^4.12.11",
     "gulp": "^5.0.0",
@@ -21,5 +23,11 @@
     "tailwindcss": "^3.4.13",
     "tslib": "^2.7.0",
     "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "openai": "^4.67.1",
+    "ragged": "^0.8.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   }
 }

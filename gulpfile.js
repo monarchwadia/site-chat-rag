@@ -33,7 +33,7 @@ gulp.task('copyFiles', function () {
 
 gulp.task('rollup', function rollupTask() {
     return rollup.rollup({
-        input: './src/sidebar.ts',
+        input: './src/sidebar.tsx',
         plugins: [rollupTypescript({
             tsconfig: './tsconfig.json'
         })]
