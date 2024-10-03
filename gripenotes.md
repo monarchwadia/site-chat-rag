@@ -18,3 +18,5 @@ I'm happy with the progress I've made today & I'm going to call it a day. I'll p
 Next, I need to prove sidebar+dropdown+newtab views, communication between them, and persistence. After that is done, I'll be able to build the automation tool.
 
 - Created sidebar,dropdown,newtab views. Moved styles to common.css.
+- Did a lot of mucking around in the build process to make things work smoothly. Now they're working smoothly.
+- Persistence and communication now working through Dexie.
