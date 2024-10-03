@@ -8,6 +8,12 @@ importers:
 
   .:
     dependencies:
+      dexie:
+        specifier: ^4.0.8
+        version: 4.0.8
+      dexie-react-hooks:
+        specifier: ^1.1.7
+        version: 1.1.7(@types/react@18.3.11)(dexie@4.0.8)(react@18.3.1)
       openai:
         specifier: ^4.67.1
         version: 4.67.1
@@ -27,6 +33,9 @@ importers:
       '@babel/preset-react':
         specifier: ^7.25.7
         version: 7.25.7(@babel/core@7.25.7)
+      '@babel/preset-typescript':
+        specifier: ^7.25.7
+        version: 7.25.7(@babel/core@7.25.7)
       '@rollup/plugin-babel':
         specifier: ^6.0.4
         version: 6.0.4(@babel/core@7.25.7)(rollup@4.24.0)
@@ -42,6 +51,9 @@ importers:
       '@rollup/plugin-typescript':
         specifier: ^12.1.0
         version: 12.1.0(rollup@4.24.0)(tslib@2.7.0)(typescript@5.6.2)
+      '@types/chrome':
+        specifier: ^0.0.276
+        version: 0.0.276
       '@types/react':
         specifier: ^18.3.11
         version: 18.3.11
@@ -330,6 +342,12 @@ packages:
 
   '@babel/plugin-syntax-top-level-await@7.14.5':
     resolution: {integrity: sha512-hx++upLv5U1rgYfwe1xBQUhRmU41NEvpUvrp8jkrSCdvGSnM5/qdRMtylJ6PG5OFkBaHkbTAKTnd3/YyESRHFw==}
+    engines: {node: '>=6.9.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+
+  '@babel/plugin-syntax-typescript@7.25.7':
+    resolution: {integrity: sha512-rR+5FDjpCHqqZN2bzZm18bVYGaejGq5ZkpVCJLXor/+zlSrSoc4KWcHI0URVWjl/68Dyr1uwZUz/1njycEAv9g==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -634,6 +652,12 @@ packages:
     peerDependencies:
       '@babel/core': ^7.0.0-0
 
+  '@babel/plugin-transform-typescript@7.25.7':
+    resolution: {integrity: sha512-VKlgy2vBzj8AmEzunocMun2fF06bsSWV+FvVXohtL6FGve/+L217qhHxRTVGHEDO/YR8IANcjzgJsd04J8ge5Q==}
+    engines: {node: '>=6.9.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+
   '@babel/plugin-transform-unicode-escapes@7.25.7':
     resolution: {integrity: sha512-BN87D7KpbdiABA+t3HbVqHzKWUDN3dymLaTnPFAMyc8lV+KN3+YzNhVRNdinaCPA4AUqx7ubXbQ9shRjYBl3SQ==}
     engines: {node: '>=6.9.0'}
@@ -671,6 +695,12 @@ packages:
 
   '@babel/preset-react@7.25.7':
     resolution: {integrity: sha512-GjV0/mUEEXpi1U5ZgDprMRRgajGMRW3G5FjMr5KLKD8nT2fTG8+h/klV3+6Dm5739QE+K5+2e91qFKAYI3pmRg==}
+    engines: {node: '>=6.9.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+
+  '@babel/preset-typescript@7.25.7':
+    resolution: {integrity: sha512-rkkpaXJZOFN45Fb+Gki0c+KMIglk4+zZXOoMJuyEK8y8Kkc8Jd3BDmP7qPsz0zQMJj+UD7EprF+AqAXcILnexw==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -879,8 +909,20 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@types/chrome@0.0.276':
+    resolution: {integrity: sha512-2r+RZzfyEvGaIBadCRmOUvWVHtEKHqO8MsHkJTEXqgFnF72pe7lfKZzOoCFh/An5+M+20ULCPofUWnwnlgrXUA==}
+
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
+
+  '@types/filesystem@0.0.36':
+    resolution: {integrity: sha512-vPDXOZuannb9FZdxgHnqSwAG/jvdGM8Wq+6N4D/d80z+D4HWH+bItqsZaVRQykAn6WEVeEkLm2oQigyHtgb0RA==}
+
+  '@types/filewriter@0.0.33':
+    resolution: {integrity: sha512-xFU8ZXTw4gd358lb2jw25nxY9QAgqn2+bKKjKOYfNCzN4DKCFetK7sPtrlpg66Ywe3vWY9FNxprZawAh9wfJ3g==}
+
+  '@types/har-format@1.2.16':
+    resolution: {integrity: sha512-fluxdy7ryD3MV6h8pTfTYpy/xQzCFC7m89nOH9y94cNqJ1mDIDPut7MnRHI3F6qRmh/cT2fUjG1MLdCNb4hE9A==}
 
   '@types/node-fetch@2.6.11':
     resolution: {integrity: sha512-24xFj9R5+rfQJLRyM56qh+wnVSYhyXC2tkoBndtY0U+vubqNsYXGjufB2nn8Q6gt0LrARwL6UBtMCSVCwl4B1g==}
@@ -1135,6 +1177,16 @@ packages:
   detect-file@1.0.0:
     resolution: {integrity: sha512-DtCOLG98P007x7wiiOmfI0fi3eIKyWiLTGJ2MDnVi/E04lWGbf+JzrRHMm0rgIIZJGtHpKpbVgLWHrv8xXpc3Q==}
     engines: {node: '>=0.10.0'}
+
+  dexie-react-hooks@1.1.7:
+    resolution: {integrity: sha512-Lwv5W0Hk+uOW3kGnsU9GZoR1er1B7WQ5DSdonoNG+focTNeJbHW6vi6nBoX534VKI3/uwHebYzSw1fwY6a7mTw==}
+    peerDependencies:
+      '@types/react': '>=16'
+      dexie: ^3.2 || ^4.0.1-alpha
+      react: '>=16'
+
+  dexie@4.0.8:
+    resolution: {integrity: sha512-1G6cJevS17KMDK847V3OHvK2zei899GwpDiqfEXHP1ASvme6eWJmAp9AU4s1son2TeGkWmC0g3y8ezOBPnalgQ==}
 
   didyoumean@1.2.2:
     resolution: {integrity: sha512-gxtyfqMg7GKyhQmb056K7M3xszy/myH8w+B4RT+QXBQsvAOdc3XymqDDPHx1BgPgsdAA5SIifona89YtRATDzw==}
@@ -2364,6 +2416,11 @@ snapshots:
       '@babel/core': 7.25.7
       '@babel/helper-plugin-utils': 7.25.7
 
+  '@babel/plugin-syntax-typescript@7.25.7(@babel/core@7.25.7)':
+    dependencies:
+      '@babel/core': 7.25.7
+      '@babel/helper-plugin-utils': 7.25.7
+
   '@babel/plugin-syntax-unicode-sets-regex@7.18.6(@babel/core@7.25.7)':
     dependencies:
       '@babel/core': 7.25.7
@@ -2705,6 +2762,17 @@ snapshots:
       '@babel/core': 7.25.7
       '@babel/helper-plugin-utils': 7.25.7
 
+  '@babel/plugin-transform-typescript@7.25.7(@babel/core@7.25.7)':
+    dependencies:
+      '@babel/core': 7.25.7
+      '@babel/helper-annotate-as-pure': 7.25.7
+      '@babel/helper-create-class-features-plugin': 7.25.7(@babel/core@7.25.7)
+      '@babel/helper-plugin-utils': 7.25.7
+      '@babel/helper-skip-transparent-expression-wrappers': 7.25.7
+      '@babel/plugin-syntax-typescript': 7.25.7(@babel/core@7.25.7)
+    transitivePeerDependencies:
+      - supports-color
+
   '@babel/plugin-transform-unicode-escapes@7.25.7(@babel/core@7.25.7)':
     dependencies:
       '@babel/core': 7.25.7
@@ -2833,6 +2901,17 @@ snapshots:
       '@babel/plugin-transform-react-jsx': 7.25.7(@babel/core@7.25.7)
       '@babel/plugin-transform-react-jsx-development': 7.25.7(@babel/core@7.25.7)
       '@babel/plugin-transform-react-pure-annotations': 7.25.7(@babel/core@7.25.7)
+    transitivePeerDependencies:
+      - supports-color
+
+  '@babel/preset-typescript@7.25.7(@babel/core@7.25.7)':
+    dependencies:
+      '@babel/core': 7.25.7
+      '@babel/helper-plugin-utils': 7.25.7
+      '@babel/helper-validator-option': 7.25.7
+      '@babel/plugin-syntax-jsx': 7.25.7(@babel/core@7.25.7)
+      '@babel/plugin-transform-modules-commonjs': 7.25.7(@babel/core@7.25.7)
+      '@babel/plugin-transform-typescript': 7.25.7(@babel/core@7.25.7)
     transitivePeerDependencies:
       - supports-color
 
@@ -3015,7 +3094,20 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.24.0':
     optional: true
 
+  '@types/chrome@0.0.276':
+    dependencies:
+      '@types/filesystem': 0.0.36
+      '@types/har-format': 1.2.16
+
   '@types/estree@1.0.6': {}
+
+  '@types/filesystem@0.0.36':
+    dependencies:
+      '@types/filewriter': 0.0.33
+
+  '@types/filewriter@0.0.33': {}
+
+  '@types/har-format@1.2.16': {}
 
   '@types/node-fetch@2.6.11':
     dependencies:
@@ -3274,6 +3366,14 @@ snapshots:
   delayed-stream@1.0.0: {}
 
   detect-file@1.0.0: {}
+
+  dexie-react-hooks@1.1.7(@types/react@18.3.11)(dexie@4.0.8)(react@18.3.1):
+    dependencies:
+      '@types/react': 18.3.11
+      dexie: 4.0.8
+      react: 18.3.1
+
+  dexie@4.0.8: {}
 
   didyoumean@1.2.2: {}
 

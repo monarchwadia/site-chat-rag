@@ -6,7 +6,8 @@ const fs = require('fs');
 const postcss = require('gulp-postcss');
 const { default: commonjs } = require('@rollup/plugin-commonjs');
 const nodeResolve = require("@rollup/plugin-node-resolve")
-const replace = require("@rollup/plugin-replace")
+const replace = require("@rollup/plugin-replace");
+const { default: typescript } = require('@rollup/plugin-typescript');
 
 // === Subtasks ===
 
@@ -44,10 +45,12 @@ gulp.task('rollup', function rollupTask() {
         ],
         plugins: [
             commonjs(), // Convert CommonJS modules to ES6, so they can be included in a Rollup bundle
-            nodeResolve(), // Import modules and include in the bundle
+            nodeResolve({
+                extensions: ['.js', '.jsx', '.ts', '.tsx']
+            }), // Import modules and include in the bundle
             rollupBabel({ // Transpile React and Typescript
                 babelHelpers: 'bundled',
-                presets: [['@babel/preset-react', { "runtime": "automatic" }]],
+                presets: [['@babel/preset-typescript'], ['@babel/preset-react', { "runtime": "automatic" }]],
                 sourceMaps: "both",
                 extensions: ['.js', '.jsx', '.es6', '.es', '.mjs', '.tsx', '.ts'],
                 minified: process.env.NODE_ENV === 'production'
@@ -79,7 +82,7 @@ gulp.task('postcss', function () {
 gulp.task('build', gulp.series('clean', 'copyFiles', 'postcss', 'rollup'));
 
 gulp.task('watch', gulp.series('build', function () {
-    return gulp.watch('./src/*', gulp.task('build'));
+    return gulp.watch('./src/**/*', gulp.task('build'));
 }));
 
 gulp.task('default', gulp.task('build'));
