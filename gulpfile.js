@@ -37,7 +37,11 @@ gulp.task('copyFiles', function () {
 
 gulp.task('rollup', function rollupTask() {
     return rollup.rollup({
-        input: './src/sidebar.tsx',
+        input: [
+            './src/newtab.tsx',
+            './src/popup.tsx',
+            './src/sidebar.tsx',
+        ],
         plugins: [
             commonjs(), // Convert CommonJS modules to ES6, so they can be included in a Rollup bundle
             nodeResolve(), // Import modules and include in the bundle
@@ -57,20 +61,22 @@ gulp.task('rollup', function rollupTask() {
     }).then(bundle => {
         return bundle.write({
             dir: './dist/',
-            format: 'iife'
+            format: 'esm'
         });
     });
 });
 
 gulp.task('postcss', function () {
-    return gulp.src('./src/*.css')
+    return gulp.src([
+        './src/*.css'
+    ])
         .pipe(postcss())
         .pipe(gulp.dest('./dist/'));
 })
 
 // === Main tasks ===
 
-gulp.task('build', gulp.series('clean', 'copyFiles', 'rollup', 'postcss'));
+gulp.task('build', gulp.series('clean', 'copyFiles', 'postcss', 'rollup'));
 
 gulp.task('watch', gulp.series('build', function () {
     return gulp.watch('./src/*', gulp.task('build'));
