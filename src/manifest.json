@@ -1,0 +1,12 @@
+{
+    "name": "Site Chat",
+    "version": "1.0",
+    "description": "A workflow automation tool for the web.",
+    "manifest_version": 2,
+    "chrome_url_overrides": {
+        "newtab": "sidebar.html"
+    },
+    "permissions": [
+        "activeTab"
+    ]
+}
