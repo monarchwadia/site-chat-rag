@@ -42,6 +42,7 @@ gulp.task('rollup', function rollupTask() {
             './src/newtab.tsx',
             './src/popup.tsx',
             './src/sidebar.tsx',
+            './src/content.ts'
         ],
         plugins: [
             commonjs(), // Convert CommonJS modules to ES6, so they can be included in a Rollup bundle

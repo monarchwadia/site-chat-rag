@@ -20,3 +20,11 @@ Next, I need to prove sidebar+dropdown+newtab views, communication between them,
 - Created sidebar,dropdown,newtab views. Moved styles to common.css.
 - Did a lot of mucking around in the build process to make things work smoothly. Now they're working smoothly.
 - Persistence and communication now working through Dexie.
+
+I should probably remove the `copyFiles`... or reduce it to just copy `manifest.json`
+
+Also, should I include `"externally_connectable": {"ids": []}` in manifest.json to stop other extensions from connecting to this one? Will that increase security? Have not added, for now. Maybe add back in later, once app is working...
+
+- Messaging between content script and components now working!
+
+Turned out the right formula was to use `chrome.tabs.sendMessage(<tabId>, <message>)` from the content script to the background script, and then `chrome.runtime.onMessage.addListener` in the background script to send the message to the components.
