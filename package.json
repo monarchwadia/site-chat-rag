@@ -13,6 +13,7 @@
   "devDependencies": {
     "@rollup/plugin-typescript": "^12.1.0",
     "autoprefixer": "^10.4.20",
+    "daisyui": "^4.12.11",
     "gulp": "^5.0.0",
     "gulp-postcss": "^10.0.0",
     "postcss": "^8.4.47",

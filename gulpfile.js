@@ -55,9 +55,9 @@ gulp.task('postcss', function () {
 
 gulp.task('build', gulp.series('clean', 'copyFiles', 'rollup', 'postcss'));
 
-gulp.task('watch', function () {
+gulp.task('watch', gulp.series('build', function () {
     return gulp.watch('./src/*', gulp.task('build'));
-})
+}));
 
 gulp.task('default', gulp.task('build'));
 
