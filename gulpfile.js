@@ -1,17 +1,44 @@
 const gulp = require('gulp');
+const rollup = require('rollup');
+const rollupTypescript = require('@rollup/plugin-typescript');
+const fs = require('fs');
 
-function defaultTask() {
-    return gulp.src('./src/*')
+gulp.task('clean', async function () {
+    const dirExists = fs.existsSync('./dist');
+
+    if (!dirExists) {
+        return Promise.resolve(true);
+    }
+
+    return fs.rmSync('./dist', { recursive: true });
+})
+
+gulp.task('copyFiles', function () {
+    return gulp.src(['src/**/*', '!src/**/*.ts', '!src/**/*.js'], { base: './src' })
         .pipe(gulp.dest('./dist/'));
-}
+})
 
-function watch() {
-    gulp.watch('./src/*', defaultTask);
-}
+gulp.task('bundle', function rollupTask() {
+    return rollup.rollup({
+        input: './src/sidebar.ts',
+        plugins: [rollupTypescript({
+            tsconfig: './tsconfig.json'
+        })]
+    }).then(bundle => {
+        return bundle.write({
+            file: './dist/sidebar.js',
+            format: 'cjs'
+        });
+    });
+});
 
-gulp.task('default', defaultTask);
+gulp.task('build', gulp.series('clean', 'copyFiles', 'bundle'));
 
-gulp.task('watch', watch)
+gulp.task('watch', function () {
+    return gulp.watch('./src/*', gulp.task('build'));
+})
+
+gulp.task('default', gulp.task('build'));
 
 
-exports.default = this.defaultTask
+exports.default = gulp.task('default');
