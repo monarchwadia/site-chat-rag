@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { CommsTestWidget } from "../../components/CommsTestWidget";
 import { TextClippingEditor } from "../../views/TextClippingEditor";
 import type { TextClipping } from "../../storage/storage.types";
+import { SidebarRouterProvider } from "./sidebar.routerProvider";
 
 // Render your React component instead
 const rootElem = document.getElementById('out');
@@ -18,8 +19,9 @@ const Main = () => {
 
     return (
         <div className="flex flex-col">
-            <CommsTestWidget label="Sidebar" />
-            <TextClippingEditor value={clipping} onChange={setClipping} />
+            <SidebarRouterProvider />
+            {/* <CommsTestWidget label="Sidebar" />
+            <TextClippingEditor value={clipping} onChange={setClipping} /> */}
         </div>
     )
 }
