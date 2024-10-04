@@ -29,5 +29,5 @@ const routes: RouteObject[] = [
     }
 ]
 
-const sidebarRouter = createMemoryRouter(routes, { initialEntries: ["/clippings-explorer"] });
+const sidebarRouter = createMemoryRouter(routes, { initialEntries: ["/chat-main"] });
 export const SidebarRouterProvider = () => <RouterProvider router={sidebarRouter} />;
