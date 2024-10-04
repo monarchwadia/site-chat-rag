@@ -11,6 +11,11 @@ export const SidebarHomePage: React.FC = () => {
                         Clippings
                     </div>
                 </Link>
+                <Link className="card card-bordered" to="/chat-main">
+                    <div className="card-body">
+                        Chat
+                    </div>
+                </Link>
             </SidebarPageWrapper>
         </div>
     )

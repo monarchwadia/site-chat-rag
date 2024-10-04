@@ -4,6 +4,7 @@ import { SidebarHomePage } from "./pages/SidebarHomePage";
 import { SidebarClippingsExplorerPage } from "./pages/SidebarClippingsExplorerPage";
 import { SidebarClippingsCreatePage } from "./pages/SidebarClippingsCreatePage";
 import { SidebarClippingsViewPage } from "./pages/SidebarClippingsViewPage";
+import { SidebarChatMainPage } from "./pages/SidebarChatMain";
 
 const routes: RouteObject[] = [
     {
@@ -21,6 +22,10 @@ const routes: RouteObject[] = [
     {
         path: "/clippings-view/:textClippingId",
         element: <SidebarClippingsViewPage />
+    },
+    {
+        path: "/chat-main",
+        element: <SidebarChatMainPage />
     }
 ]
 
