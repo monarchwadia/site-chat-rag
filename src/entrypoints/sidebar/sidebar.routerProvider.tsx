@@ -3,6 +3,7 @@ import { RouterProvider, createMemoryRouter, type RouteObject } from "react-rout
 import { SidebarHomePage } from "./pages/SidebarHomePage";
 import { SidebarClippingsExplorerPage } from "./pages/SidebarClippingsExplorerPage";
 import { SidebarClippingsCreatePage } from "./pages/SidebarClippingsCreatePage";
+import { SidebarClippingsViewPage } from "./pages/SidebarClippingsViewPage";
 
 const routes: RouteObject[] = [
     {
@@ -16,6 +17,10 @@ const routes: RouteObject[] = [
     {
         path: "/clippings-create",
         element: <SidebarClippingsCreatePage />
+    },
+    {
+        path: "/clippings-view/:textClippingId",
+        element: <SidebarClippingsViewPage />
     }
 ]
 
