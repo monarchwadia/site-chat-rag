@@ -7,9 +7,10 @@ export const SidebarClippingsExplorerPage: React.FC = () => {
     const clippings = useLiveQuery(() => db.textClippings.toArray());
 
     return (
-        <div className="flex flex-col">
-            <h1>Clippings Explorer</h1>
-            <Link to="/clippings-create" className="btn btn-info">Create Clipping</Link>
+        <div className="flex flex-col gap-2">
+            <Link to="/" className="text-lg link">🏠 Home</Link>
+            <h1 className="text-xl font-bold">Clippings Explorer</h1>
+            <Link to="/clippings-create" className="btn btn-info w-fit btn-xs">Create Clipping</Link>
             <div className="flex flex-col">
                 {
                     clippings?.map(clipping => (
