@@ -16,3 +16,8 @@ export type AiConnection<T = { apiKey: string }> = {
     provider: "openai";
     credentialsJson: T;
 }
+
+export type AppSetting<T = any> = {
+    key: string;
+    value: T;
+}

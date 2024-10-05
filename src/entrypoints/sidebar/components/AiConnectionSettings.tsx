@@ -26,7 +26,7 @@ export const AiConnectionSettings: React.FC<Props> = ({ }) => {
         confirm("Are you sure you want to delete this AI connection?") && await deleteAiConnection(id);
     }
 
-    if (!aiConnections.length) {
+    if (!aiConnections.connections.length) {
         return (
             <div className="flex flex-col">
                 <div className="hero bg-base-200">
@@ -46,13 +46,18 @@ export const AiConnectionSettings: React.FC<Props> = ({ }) => {
         <div className="flex flex-col">
             <AiConnectionForm onSubmit={handleCreateAiConnection} />
             {
-                aiConnections.map((aiConnection) => {
+                aiConnections.connections.map((aiConnection) => {
                     return (
                         <div key={aiConnection.id} className="card card-bordered">
                             <div className="card-body">
                                 <div className="card-title">{aiConnection.title}</div>
                                 <div><span className="font-bold">Provider: </span><span className="badge badge-neutral">{aiConnection.provider}</span></div>
                                 <button onClick={(e) => handleDeleteAiConnection(e, aiConnection.id)} className="btn btn-error w-fit btn-sm">Delete</button>
+                                {aiConnection.id}
+                                {aiConnections.defaultConnection?.id}
+                                {
+                                    aiConnection.id === aiConnections.defaultConnection?.id && <span className="badge badge-success">Default</span>
+                                }
                             </div>
                         </div>
                     )
