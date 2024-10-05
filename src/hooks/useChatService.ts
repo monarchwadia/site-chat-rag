@@ -17,12 +17,12 @@ type UseChatSessionOpts = {
 }
 export const useChatService = (opts: UseChatSessionOpts) => {
     const { aiConnectionId, chatSessionId } = opts;
-    const { lastChatSessionId, setLastChatSessionId } = useAppSettings();
+    const { pinnedChatSessionId, setPinnedChatSessionId } = useAppSettings();
     const { useAiConnectionById } = useAiConnectionsManager();
     const [messages, setMessages] = useState<Message[]>([]);
     const [isBusy, setIsBusy] = useState(false);
 
-    const chatSession = useChatSessionById(chatSessionId || lastChatSessionId);
+    const chatSession = useChatSessionById(chatSessionId || pinnedChatSessionId);
     const aiConnection = useAiConnectionById(aiConnectionId);
     const clippings = useLiveQuery(() => db.textClippings.toArray() || []);
 
@@ -67,7 +67,7 @@ export const useChatService = (opts: UseChatSessionOpts) => {
         }
 
         // these get saved later on
-        const newMessages: Message[] = [...messages, {
+        const messagesClone: Message[] = [...messages, {
             type: "user",
             text: m
         }]
@@ -77,25 +77,24 @@ export const useChatService = (opts: UseChatSessionOpts) => {
                 type: "system",
                 text: clippingsContext
             },
-            ...newMessages
+            ...messagesClone
         ]
 
 
 
         setIsBusy(true);
-        const { history } = await c.chat(m);
-        const newHistory = [...newMessages, ...history];
+        const { history: responseMessages } = await c.chat(m);
+        const newMessages = [...messagesClone, ...responseMessages];
+        setMessages(newMessages);
         if (chatSession?.id) {
-            updateChatSession(chatSession.id, { messages: newHistory, lastUsedAiConnectionId: aiConnection.id });
+            await updateChatSession(chatSession.id, { messages: newMessages, lastUsedAiConnectionId: aiConnection.id });
         } else {
-            const sesh = await createChatSession({
+            const newChatSession = await createChatSession({
                 lastUsedAiConnectionId: aiConnection.id,
-                messages: newHistory
+                messages: newMessages
             })
-            setLastChatSessionId(sesh.id);
-            setMessages(newHistory);
+            await setPinnedChatSessionId(newChatSession.id);
         }
-        setMessages(newHistory);
         setIsBusy(false);
     }
 
@@ -103,6 +102,9 @@ export const useChatService = (opts: UseChatSessionOpts) => {
         messages,
         status,
         isSendDisabled: status !== "idle",
+        pinChatSessionById: async (id: string) => {
+            return setPinnedChatSessionId(id);
+        },
         sendMessage: (m: string) => {
             handleChat(m);
         }

@@ -15,9 +15,7 @@ export const useAiConnectionsManager = () => {
     const {
         defaultAiConnectionId,
         setDefaultAiConnectionId,
-        deleteDefaultAiConnectionId,
-        lastChatSessionId,
-        setLastChatSessionId
+        deleteDefaultAiConnectionId
     } = useAppSettings();
 
     const obj = useMemo(() => {

@@ -1,5 +1,5 @@
 import React from "react";
-import { ChatSession } from "../components/ChatSession";
+import { ChatSessionComponent } from "../components/ChatSessionComponent";
 import { SidebarPageWrapper } from "../components/SidebarPageWrapper";
 import { useAiConnectionsManager } from "../../../hooks/useDbAiConnections";
 import { AiConnectionSettings } from "../components/AiConnectionSettings";
