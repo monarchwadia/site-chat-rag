@@ -29,8 +29,8 @@ export const AiConnectionForm: React.FC<Props> = ({ onSubmit, onClose }) => {
     return (
         <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
             <input className="input input-sm input-bordered" type="text" id="title" placeholder="Title" />
-            <select className="select select-sm select-bordered" id="provider">
-                <option value="openai" selected={true}>OpenAI</option>
+            <select className="select select-sm select-bordered" id="provider" value={"openai"}>
+                <option value="openai">OpenAI</option>
             </select>
             <input className="input input-sm input-bordered" type="text" id="apiKey" placeholder="API Key" />
             <button className="btn btn-sm  btn-info" type="submit">Create</button>

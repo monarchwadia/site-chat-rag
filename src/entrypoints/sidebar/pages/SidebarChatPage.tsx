@@ -1,16 +1,16 @@
 import React from "react";
 import { ChatSession } from "../components/ChatSession";
 import { SidebarPageWrapper } from "../components/SidebarPageWrapper";
-import { useAiConnectionsManager } from "../../../hooks/useAiConnectionsManager";
+import { useAiConnectionsManager } from "../../../hooks/useDbAiConnections";
 import { AiConnectionSettings } from "../components/AiConnectionSettings";
-import { useChatSessions } from "../../../hooks/useChatSessions";
+import { useAllChatSessions } from "../../../hooks/useDbChatSessions";
 
 type Props = React.PropsWithChildren<{
 
 }>;
 
 export const SidebarChatPage: React.FC<Props> = ({ }) => {
-    const chatSessions = useChatSessions();
+    const chatSessions = useAllChatSessions();
     return (
         <SidebarPageWrapper pageTitle="Chat">
             <div className="flex flex-col">

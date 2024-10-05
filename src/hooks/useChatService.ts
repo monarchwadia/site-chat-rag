@@ -5,18 +5,26 @@ import type { AiConnection, ChatSession } from "../storage/db.types";
 import { db } from "../storage/db";
 import { createChatSession, updateChatSession } from "../storage/chatSession.dao";
 import { useLiveQuery } from "dexie-react-hooks";
+import { useAiConnectionsManager } from "./useDbAiConnections";
+import { useChatSessionById } from "./useDbChatSessions";
+import { useAppSettings } from "./useAppSettings";
 
 type ChatSessionStatus = "idle" | "disabledNoChatSession" | "disabledBusy";
 
 type UseChatSessionOpts = {
-    aiConnection?: AiConnection,
-    chatSession?: ChatSession
+    aiConnectionId?: string,
+    chatSessionId?: string;
 }
-export const useChatSession = (opts: UseChatSessionOpts) => {
-    const clippings = useLiveQuery(() => db.textClippings.toArray() || [])
-    const { aiConnection, chatSession } = opts;
-    const [messages, setMessages] = useState<Message[]>(chatSession?.messages || []);
+export const useChatService = (opts: UseChatSessionOpts) => {
+    const { aiConnectionId, chatSessionId } = opts;
+    const { lastChatSessionId } = useAppSettings();
+    const { useAiConnectionById, useDefaultAiConnection } = useAiConnectionsManager();
+    const [messages, setMessages] = useState<Message[]>([]);
     const [isBusy, setIsBusy] = useState(false);
+
+    const chatSession = useChatSessionById(chatSessionId || lastChatSessionId);
+    const aiConnection = useAiConnectionById(aiConnectionId);
+    const clippings = useLiveQuery(() => db.textClippings.toArray() || []);
 
     useEffect(() => {
         if (chatSession) {

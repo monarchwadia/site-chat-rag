@@ -1,8 +1,8 @@
 import React, { useEffect, type FormEventHandler } from "react";
-import { useChatSession } from "../../../hooks/useChatSession";
+import { useChatService } from "../../../hooks/useChatService";
 import { ChatSessionMessage } from "./ChatSessionMessage/ChatSessionMessage";
 import type { AiConnection } from "../../../storage/db.types";
-import { useAiConnectionsManager } from "../../../hooks/useAiConnectionsManager";
+import { useAiConnectionsManager } from "../../../hooks/useDbAiConnections";
 import { useAppSettings } from "../../../hooks/useAppSettings";
 
 type Props = React.PropsWithChildren<{
@@ -10,19 +10,10 @@ type Props = React.PropsWithChildren<{
 }>;
 
 export const ChatSession: React.FC<Props> = ({ }) => {
-    const { defaultAiConnection, useAiConnectionById } = useAiConnectionsManager();
-    const { lastChatSessionId, setLastChatSessionId } = useAppSettings();
-
-
-    const { messages, sendMessage, status, isSendDisabled } = useChatSession({
-        aiConnection: defaultAiConnection
+    const { defaultAiConnectionId } = useAppSettings();
+    const { messages, sendMessage, status, isSendDisabled } = useChatService({
+        aiConnectionId: defaultAiConnectionId
     });
-
-    useEffect(() => {
-        if (lastChatSessionId) {
-            setLastChatSessionId(lastChatSessionId);
-        }
-    }, [lastChatSessionId])
 
     const handleSend: FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
@@ -34,6 +25,8 @@ export const ChatSession: React.FC<Props> = ({ }) => {
     return (
         <div className="flex flex-col">
             {messages.map((msg, i) => <ChatSessionMessage message={msg} key={JSON.stringify(msg) + '-' + i} />)}
+            <hr className="divider" />
+            <div>Status: {status}</div>
             <form className="flex flex-row" onSubmit={handleSend}>
                 <div className="flex-grow">
                     <textarea id="chat-input" className="textarea textarea-bordered textarea-primary w-full" placeholder="Type a message..." />

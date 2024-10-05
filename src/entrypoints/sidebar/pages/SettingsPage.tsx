@@ -1,7 +1,7 @@
 import React from "react";
 import { ChatSession } from "../components/ChatSession";
 import { SidebarPageWrapper } from "../components/SidebarPageWrapper";
-import { useAiConnectionsManager } from "../../../hooks/useAiConnectionsManager";
+import { useAiConnectionsManager } from "../../../hooks/useDbAiConnections";
 import { AiConnectionSettings } from "../components/AiConnectionSettings";
 
 type Props = React.PropsWithChildren<{

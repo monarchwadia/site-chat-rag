@@ -53,8 +53,15 @@ export const useAiConnectionsManager = () => {
 
                 return deletedId;
             },
-            useAiConnectionById: (id: string) => {
-                return usePromiseResult(db.aiConnections.get(id), [id]);
+            useAiConnectionById: (id?: string) => {
+                const getAiConnection = async () => {
+                    if (!id) {
+                        return undefined;
+                    }
+
+                    return db.aiConnections.get(id);
+                }
+                return useLiveQuery(getAiConnection, [id]);
             },
             useListAllAiConnections: () => {
                 const aiConnections = useLiveQuery(() => db.aiConnections.toArray(), []);
