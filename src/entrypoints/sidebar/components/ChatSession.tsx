@@ -11,7 +11,7 @@ type Props = React.PropsWithChildren<{
 export const ChatSession: React.FC<Props> = ({ }) => {
     const { getDefaultAiConnection } = useAiConnectionsManager();
 
-    const { messages, sendMessage } = useChatSession({
+    const { messages, sendMessage, status, isSendDisabled } = useChatSession({
         aiConnection: getDefaultAiConnection()
     });
 
@@ -19,7 +19,7 @@ export const ChatSession: React.FC<Props> = ({ }) => {
         e.preventDefault();
         const chatInput = e.currentTarget.querySelector("#chat-input") as HTMLTextAreaElement;
         const val = chatInput.value;
-        sendMessage();
+        sendMessage(val);
     }
 
     return (
@@ -30,7 +30,7 @@ export const ChatSession: React.FC<Props> = ({ }) => {
                     <textarea id="chat-input" className="textarea textarea-bordered textarea-primary w-full" placeholder="Type a message..." />
                 </div>
                 <div className="flex-none items-baseline justify-end">
-                    <button className="btn btn-primary">Send</button>
+                    <button className="btn btn-primary" type="submit" disabled={isSendDisabled}>Send</button>
                 </div>
             </form>
         </div>

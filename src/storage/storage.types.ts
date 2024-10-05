@@ -1,3 +1,5 @@
+import type { Message } from "ragged";
+
 export type ClickEntity = {
     id: string;
     source: string;
@@ -20,4 +22,10 @@ export type AiConnection<T = { apiKey: string }> = {
 export type AppSetting<T = any> = {
     key: string;
     value: T;
+}
+
+export type ChatSession = {
+    id: string;
+    messages: Message[];
+    lastUsedAiConnectionId: string;
 }
