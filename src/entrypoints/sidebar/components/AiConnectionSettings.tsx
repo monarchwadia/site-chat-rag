@@ -26,6 +26,22 @@ export const AiConnectionSettings: React.FC<Props> = ({ }) => {
         confirm("Are you sure you want to delete this AI connection?") && await deleteAiConnection(id);
     }
 
+    if (!aiConnections.length) {
+        return (
+            <div className="flex flex-col">
+                <div className="hero bg-base-200">
+                    <div className="hero-content text-center flex flex-col">
+                        <h1 className="text-2xl">No AI connections found.</h1>
+                        <p className="text-lg">Create a new AI connection to power up this extension.</p>
+                        <div className="bordered gap-4 rounded">
+                            <AiConnectionForm onSubmit={handleCreateAiConnection} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div className="flex flex-col">
             <AiConnectionForm onSubmit={handleCreateAiConnection} />
