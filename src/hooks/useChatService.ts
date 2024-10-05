@@ -17,8 +17,8 @@ type UseChatSessionOpts = {
 }
 export const useChatService = (opts: UseChatSessionOpts) => {
     const { aiConnectionId, chatSessionId } = opts;
-    const { lastChatSessionId } = useAppSettings();
-    const { useAiConnectionById, useDefaultAiConnection } = useAiConnectionsManager();
+    const { lastChatSessionId, setLastChatSessionId } = useAppSettings();
+    const { useAiConnectionById } = useAiConnectionsManager();
     const [messages, setMessages] = useState<Message[]>([]);
     const [isBusy, setIsBusy] = useState(false);
 
@@ -88,10 +88,11 @@ export const useChatService = (opts: UseChatSessionOpts) => {
         if (chatSession?.id) {
             updateChatSession(chatSession.id, { messages: newHistory, lastUsedAiConnectionId: aiConnection.id });
         } else {
-            await createChatSession({
+            const sesh = await createChatSession({
                 lastUsedAiConnectionId: aiConnection.id,
                 messages: newHistory
             })
+            setLastChatSessionId(sesh.id);
             setMessages(newHistory);
         }
         setMessages(newHistory);
