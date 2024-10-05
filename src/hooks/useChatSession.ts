@@ -15,7 +15,7 @@ const c = Chat.with({
 })
 
 type UseChatSessionOpts = {
-    aiConnection: AiConnection
+    aiConnection?: AiConnection
 }
 export const useChatSession = (opts: UseChatSessionOpts): ChatSession => {
     const { aiConnection } = opts;

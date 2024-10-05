@@ -2,14 +2,17 @@ import React from "react";
 import { useChatSession } from "../../../hooks/useChatSession";
 import { ChatSessionMessage } from "./ChatSessionMessage/ChatSessionMessage";
 import type { AiConnection } from "../../../storage/storage.types";
+import { useAiConnectionsManager } from "../../../hooks/useAiConnectionsManager";
 
 type Props = React.PropsWithChildren<{
-    aiConnection: AiConnection;
+
 }>;
 
-export const ChatSession: React.FC<Props> = ({ aiConnection }) => {
+export const ChatSession: React.FC<Props> = ({ }) => {
+    const { getDefaultAiConnection } = useAiConnectionsManager();
+
     const { messages } = useChatSession({
-        aiConnection
+        aiConnection: getDefaultAiConnection()
     });
 
     return (

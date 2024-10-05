@@ -9,9 +9,6 @@ type Props = React.PropsWithChildren<{
 }>;
 
 export const SidebarChatMainPage: React.FC<Props> = ({ }) => {
-    const { createAiConnection, listAllAiConnections } = useAiConnectionsManager();
-
-
     return (
         <SidebarPageWrapper pageTitle="Chat">
             <div className="flex flex-col">

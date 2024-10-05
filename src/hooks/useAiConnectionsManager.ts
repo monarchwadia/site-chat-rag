@@ -25,7 +25,7 @@ export const useAiConnectionsManager = () => {
                 const newId = await db.aiConnections.add({ id, ...aiConnection });
                 return newId;
             },
-            getDefaultAiConnection: async () => {
+            getDefaultAiConnection: () => {
                 return defaultAiConnection;
             },
             setDefaultAiConnection: async (id: string) => {
