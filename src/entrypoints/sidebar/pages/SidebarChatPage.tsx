@@ -8,11 +8,10 @@ type Props = React.PropsWithChildren<{
 
 }>;
 
-export const SidebarChatMainPage: React.FC<Props> = ({ }) => {
+export const SidebarChatPage: React.FC<Props> = ({ }) => {
     return (
         <SidebarPageWrapper pageTitle="Chat">
             <div className="flex flex-col">
-                <AiConnectionSettings />
                 <ChatSession />
             </div>
         </SidebarPageWrapper>

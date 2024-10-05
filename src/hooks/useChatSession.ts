@@ -3,10 +3,6 @@ import type { Message } from "ragged";
 import { useEffect, useState } from "react";
 import type { AiConnection } from "../storage/storage.types";
 
-type ChatSession = {
-    messages: Message[];
-}
-
 const c = Chat.with({
     provider: "openai",
     config: {
@@ -17,7 +13,7 @@ const c = Chat.with({
 type UseChatSessionOpts = {
     aiConnection?: AiConnection
 }
-export const useChatSession = (opts: UseChatSessionOpts): ChatSession => {
+export const useChatSession = (opts: UseChatSessionOpts) => {
     const { aiConnection } = opts;
 
     const [messages, setMessages] = useState<Message[]>([
@@ -32,6 +28,9 @@ export const useChatSession = (opts: UseChatSessionOpts): ChatSession => {
     ]);
 
     return {
-        messages
+        messages,
+        sendMessage: () => {
+            alert("SENDING")
+        }
     }
 }

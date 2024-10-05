@@ -4,7 +4,7 @@ import { SidebarHomePage } from "./pages/SidebarHomePage";
 import { SidebarClippingsExplorerPage } from "./pages/SidebarClippingsExplorerPage";
 import { SidebarClippingsCreatePage } from "./pages/SidebarClippingsCreatePage";
 import { SidebarClippingsViewPage } from "./pages/SidebarClippingsViewPage";
-import { SidebarChatMainPage } from "./pages/SidebarChatMain";
+import { SidebarChatPage } from "./pages/SidebarChatPage";
 import { SettingsPage } from "./pages/SettingsPage";
 
 const routes: RouteObject[] = [
@@ -25,8 +25,8 @@ const routes: RouteObject[] = [
         element: <SidebarClippingsViewPage />
     },
     {
-        path: "/chat-main",
-        element: <SidebarChatMainPage />
+        path: "/chat",
+        element: <SidebarChatPage />
     },
     {
         path: "/settings",
@@ -34,5 +34,5 @@ const routes: RouteObject[] = [
     },
 ]
 
-const sidebarRouter = createMemoryRouter(routes, { initialEntries: ["/settings"] });
+const sidebarRouter = createMemoryRouter(routes, { initialEntries: ["/chat"] });
 export const SidebarRouterProvider = () => <RouterProvider router={sidebarRouter} />;
