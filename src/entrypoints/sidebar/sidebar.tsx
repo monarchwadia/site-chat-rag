@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { createRoot } from 'react-dom/client';
 import { CommsTestWidget } from "../../components/CommsTestWidget";
 import { TextClippingEditor } from "../../views/TextClippingEditor";
-import type { TextClipping } from "../../storage/storage.types";
+import type { TextClipping } from "../../storage/db.types";
 import { SidebarRouterProvider } from "./sidebar.routerProvider";
 
 // Render your React component instead

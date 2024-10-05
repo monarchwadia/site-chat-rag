@@ -1,5 +1,5 @@
 import React, { useEffect, useState, type ChangeEventHandler } from 'react';
-import type { TextClipping } from '../storage/storage.types';
+import type { TextClipping } from '../storage/db.types';
 
 type Props = {
     value: TextClipping;

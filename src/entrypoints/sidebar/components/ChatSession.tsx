@@ -1,18 +1,19 @@
 import React, { type FormEventHandler } from "react";
 import { useChatSession } from "../../../hooks/useChatSession";
 import { ChatSessionMessage } from "./ChatSessionMessage/ChatSessionMessage";
-import type { AiConnection } from "../../../storage/storage.types";
+import type { AiConnection } from "../../../storage/db.types";
 import { useAiConnectionsManager } from "../../../hooks/useAiConnectionsManager";
+import { useAppSettings } from "../../../hooks/useAppSettings";
 
 type Props = React.PropsWithChildren<{
 
 }>;
 
 export const ChatSession: React.FC<Props> = ({ }) => {
-    const { getDefaultAiConnection } = useAiConnectionsManager();
+    const { defaultAiConnection } = useAiConnectionsManager();
 
     const { messages, sendMessage, status, isSendDisabled } = useChatSession({
-        aiConnection: getDefaultAiConnection()
+        aiConnection: defaultAiConnection
     });
 
     const handleSend: FormEventHandler<HTMLFormElement> = (e) => {
@@ -24,7 +25,7 @@ export const ChatSession: React.FC<Props> = ({ }) => {
 
     return (
         <div className="flex flex-col">
-            {messages.map((msg, i) => <ChatSessionMessage message={msg} key={JSON.stringify(msg)} />)}
+            {messages.map((msg, i) => <ChatSessionMessage message={msg} key={JSON.stringify(msg) + '-' + i} />)}
             <form className="flex flex-row" onSubmit={handleSend}>
                 <div className="flex-grow">
                     <textarea id="chat-input" className="textarea textarea-bordered textarea-primary w-full" placeholder="Type a message..." />

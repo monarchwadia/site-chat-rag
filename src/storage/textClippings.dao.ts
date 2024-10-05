@@ -1,6 +1,6 @@
 import { v4 } from "uuid";
 import { db } from "./db";
-import type { TextClipping } from "./storage.types";
+import type { TextClipping } from "./db.types";
 
 type CreateTextClippingArgs = {
     title: string;

@@ -1,5 +1,5 @@
 import Dexie, { type EntityTable } from 'dexie';
-import type { AiConnection, ClickEntity, AppSetting, TextClipping, ChatSession } from './storage.types';
+import type { AiConnection, ClickEntity, AppSetting, TextClipping, ChatSession } from './db.types';
 
 const db = new Dexie('site-chat-rag') as Dexie & {
     clicks: EntityTable<ClickEntity, 'id'>,
@@ -14,7 +14,7 @@ db.version(1).stores({
     textClippings: 'id, title',
     aiConnections: 'id, title',
     appSettings: 'key',
-    chatSessions: 'id, lastUsedAiConnectionId'
+    chatSessions: 'id'
 });
 
 export { db }

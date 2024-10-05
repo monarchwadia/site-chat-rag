@@ -1,9 +1,9 @@
 import { useMemo } from "react"
 import { db } from "../storage/db"
-import type { AiConnection } from "../storage/storage.types"
+import type { AiConnection } from "../storage/db.types"
 import { v4 } from "uuid"
 import { useLiveQuery } from "dexie-react-hooks"
-import { SETTINGKEY_DEFAULT_AI_CONNECTION_ID } from "../constants"
+import { useAppSettings } from "./useAppSettings"
 
 /**
  * This AiConnectionManager uses Dexie to CRUDL the various AI connections.
@@ -11,8 +11,15 @@ import { SETTINGKEY_DEFAULT_AI_CONNECTION_ID } from "../constants"
  */
 export const useAiConnectionsManager = () => {
     const allAiConnections = useLiveQuery(() => db.aiConnections.toArray(), [])
-    const defaultAiConnectionId = useLiveQuery(() => db.appSettings.get(SETTINGKEY_DEFAULT_AI_CONNECTION_ID), [])
-    const defaultAiConnection = allAiConnections?.find((aiConnection) => aiConnection.id === defaultAiConnectionId?.value);
+    const {
+        defaultAiConnectionId,
+        setDefaultAiConnectionId,
+        deleteDefaultAiConnectionId,
+        lastChatSessionId,
+        setLastChatSessionId
+    } = useAppSettings();
+
+    const defaultAiConnection = allAiConnections?.find((aiConnection) => aiConnection.id === defaultAiConnectionId);
 
     const obj = useMemo(() => {
         return {
@@ -20,16 +27,14 @@ export const useAiConnectionsManager = () => {
                 const id = v4();
                 const count = await db.aiConnections.count();
                 if (count === 0) {
-                    await db.appSettings.put({ key: SETTINGKEY_DEFAULT_AI_CONNECTION_ID, value: id });
+                    await setDefaultAiConnectionId(id);
                 }
                 const newId = await db.aiConnections.add({ id, ...aiConnection });
                 return newId;
             },
-            getDefaultAiConnection: () => {
-                return defaultAiConnection;
-            },
+            defaultAiConnection,
             setDefaultAiConnection: async (id: string) => {
-                await db.appSettings.put({ key: SETTINGKEY_DEFAULT_AI_CONNECTION_ID, value: id });
+                await setDefaultAiConnectionId(id);
             },
             getAiConnectionById: async () => {
                 // TODO
@@ -39,8 +44,7 @@ export const useAiConnectionsManager = () => {
             },
             deleteAiConnection: async (id: string) => {
                 let defaultWasDeleted = false;
-                if (defaultAiConnectionId?.value === id) {
-                    // await db.appSettings.delete(SETTINGKEY_DEFAULT_AI_CONNECTION_ID);
+                if (defaultAiConnectionId === id) {
                     defaultWasDeleted = true;
                 }
 
@@ -49,9 +53,9 @@ export const useAiConnectionsManager = () => {
                 if (defaultWasDeleted) {
                     const newDefault = allAiConnections?.find((aiConnection) => aiConnection.id !== id);
                     if (newDefault) {
-                        await db.appSettings.put({ key: SETTINGKEY_DEFAULT_AI_CONNECTION_ID, value: newDefault.id });
+                        await setDefaultAiConnectionId(newDefault.id);
                     } else {
-                        await db.appSettings.delete(SETTINGKEY_DEFAULT_AI_CONNECTION_ID);
+                        await deleteDefaultAiConnectionId();
                     }
                 }
 

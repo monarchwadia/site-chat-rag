@@ -1,7 +1,7 @@
 import { Chat } from "ragged";
 import type { Message } from "ragged";
 import { useEffect, useMemo, useState } from "react";
-import type { AiConnection, ChatSession } from "../storage/storage.types";
+import type { AiConnection, ChatSession } from "../storage/db.types";
 import { db } from "../storage/db";
 import { createChatSession, updateChatSession } from "../storage/chatSession.dao";
 import { useLiveQuery } from "dexie-react-hooks";
@@ -80,11 +80,6 @@ export const useChatSession = (opts: UseChatSessionOpts) => {
         if (chatSession?.id) {
             updateChatSession(chatSession.id, { messages: newHistory, lastUsedAiConnectionId: aiConnection.id });
         } else {
-            // const newId = await db.chatSessions.add({
-            //     messages: newHistory,
-            //     lastUsedAiConnectionId: aiConnection?.id,
-
-            // });
             await createChatSession({
                 lastUsedAiConnectionId: aiConnection.id,
                 messages: newHistory

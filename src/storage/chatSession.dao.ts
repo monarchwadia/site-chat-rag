@@ -1,6 +1,6 @@
 import { v4 } from "uuid";
 import { db } from "./db";
-import type { ChatSession, TextClipping } from "./storage.types";
+import type { ChatSession, TextClipping } from "./db.types";
 import type { Message } from "ragged";
 
 type CreateChatSessionArgs = {
