@@ -40,5 +40,6 @@ Next, I need to build the simplest version of the automation tool:
 - Made a lot of progress.
 - Chat is now working against openai.
 - Settings page with ability to add connections is now working.
+- Chat with clippings is now working.
 
-Next, I have to add the ability to add clippings, and then chat with them.
+The chat is really broken, need to fix that up before i move on to other functionality.

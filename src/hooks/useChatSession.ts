@@ -4,44 +4,19 @@ import { useEffect, useMemo, useState } from "react";
 import type { AiConnection, ChatSession } from "../storage/storage.types";
 import { db } from "../storage/db";
 import { createChatSession, updateChatSession } from "../storage/chatSession.dao";
+import { useLiveQuery } from "dexie-react-hooks";
 
 type ChatSessionStatus = "idle" | "disabledNoChatSession" | "disabledBusy";
-
-const c = Chat.with({
-    provider: "openai",
-    config: {
-        apiKey: "sk-1234567890abcdef1234567890abcdef"
-    }
-})
 
 type UseChatSessionOpts = {
     aiConnection?: AiConnection,
     chatSession?: ChatSession
 }
 export const useChatSession = (opts: UseChatSessionOpts) => {
+    const clippings = useLiveQuery(() => db.textClippings.toArray() || [])
     const { aiConnection, chatSession } = opts;
-
     const [messages, setMessages] = useState<Message[]>(chatSession?.messages || []);
     const [isBusy, setIsBusy] = useState(false);
-
-    const c = useMemo(() => {
-        if (aiConnection == null) {
-            return null;
-        }
-
-        const newC = Chat.with({
-            provider: aiConnection?.provider || "openai",
-            config: aiConnection?.credentialsJson
-        });
-
-        newC.record(false); // we are manually managing this
-
-        if (chatSession) {
-            newC.history = chatSession.messages;
-        }
-
-        return newC;
-    }, [aiConnection, chatSession?.id]);
 
     useEffect(() => {
         if (chatSession) {
@@ -52,7 +27,7 @@ export const useChatSession = (opts: UseChatSessionOpts) => {
     }, [chatSession?.id]);
 
     let status: ChatSessionStatus;
-    if (!c) {
+    if (!aiConnection?.id) {
         status = "disabledNoChatSession";
     } else if (isBusy) {
         status = "disabledBusy";
@@ -61,14 +36,43 @@ export const useChatSession = (opts: UseChatSessionOpts) => {
     }
 
     const handleChat = async (m: string) => {
-        if (status !== "idle" || !c || !aiConnection) {
+        if (status !== "idle" || !aiConnection) {
             return;
         }
 
+        const c = Chat.with({
+            provider: aiConnection?.provider || "openai",
+            config: aiConnection?.credentialsJson
+        });
+
+        // generate clippings context
+        let clippingsContext = ''
+        if (clippings) {
+            clippingsContext += 'The following are clippings from the user\'s library. You can use these to generate responses.\n'
+            clippings.forEach((clipping) => {
+                clippingsContext += '--------------------------------\n'
+                clippingsContext += '# Title: ' + clipping.title || '<No title provided>\n'
+                clippingsContext += clipping.title + '\n'
+            })
+        } else {
+            clippingsContext = 'No clippings were added.'
+        }
+
+        // these get saved later on
         const newMessages: Message[] = [...messages, {
             type: "user",
             text: m
         }]
+
+        c.history = [
+            {
+                type: "system",
+                text: clippingsContext
+            },
+            ...newMessages
+        ]
+
+
 
         setIsBusy(true);
         const { history } = await c.chat(m);
