@@ -43,3 +43,23 @@ Next, I need to build the simplest version of the automation tool:
 - Chat with clippings is now working.
 
 The chat is really broken, need to fix that up before i move on to other functionality.
+
+# 2024-10-05
+
+Made improvements in various areas. Turns out that the difficulties with chat behaviour come down to how Ragged is duplicating chat messages inside the returned object.history.
+
+```ts
+    // setting history to send up.. everything fine so far
+    c.history = [{
+      type: "system",
+      text: clippingsContext
+    }, ...messagesClone];
+
+    setIsBusy(true);
+    const {
+      history: newMessages
+    } = await c.chat(m);
+
+    // Issue 1: newMessages has duplicated the `m` message here, leading to unreliable history.
+    // Issue 2: I don't have access to just the new responses. Since we're manually managing history, this is a problem, because clippings need to be removed from the history for each chat run.
+```
