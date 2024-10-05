@@ -35,3 +35,10 @@ Next, I need to build the simplest version of the automation tool:
 - save clippings to a collection
 - chat with one or more collections
 
+# 2024-10-04 to 2024-10-05 early morning
+
+- Made a lot of progress.
+- Chat is now working against openai.
+- Settings page with ability to add connections is now working.
+
+Next, I have to add the ability to add clippings, and then chat with them.

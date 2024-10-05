@@ -2,6 +2,8 @@ import { Chat } from "ragged";
 import type { Message } from "ragged";
 import { useEffect, useMemo, useState } from "react";
 import type { AiConnection, ChatSession } from "../storage/storage.types";
+import { db } from "../storage/db";
+import { createChatSession, updateChatSession } from "../storage/chatSession.dao";
 
 type ChatSessionStatus = "idle" | "disabledNoChatSession" | "disabledBusy";
 
@@ -59,7 +61,7 @@ export const useChatSession = (opts: UseChatSessionOpts) => {
     }
 
     const handleChat = async (m: string) => {
-        if (status !== "idle") {
+        if (status !== "idle" || !c || !aiConnection) {
             return;
         }
 
@@ -70,7 +72,22 @@ export const useChatSession = (opts: UseChatSessionOpts) => {
 
         setIsBusy(true);
         const { history } = await c.chat(m);
-        setMessages([...newMessages, ...history]);
+        const newHistory = [...newMessages, ...history];
+        if (chatSession?.id) {
+            updateChatSession(chatSession.id, { messages: newHistory, lastUsedAiConnectionId: aiConnection.id });
+        } else {
+            // const newId = await db.chatSessions.add({
+            //     messages: newHistory,
+            //     lastUsedAiConnectionId: aiConnection?.id,
+
+            // });
+            await createChatSession({
+                lastUsedAiConnectionId: aiConnection.id,
+                messages: newHistory
+            })
+            setMessages(newHistory);
+        }
+        setMessages(newHistory);
         setIsBusy(false);
     }
 

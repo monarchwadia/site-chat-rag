@@ -26,6 +26,7 @@ export type AppSetting<T = any> = {
 
 export type ChatSession = {
     id: string;
+    title?: string;
     messages: Message[];
-    lastUsedAiConnectionId: string;
+    lastUsedAiConnectionId?: string;
 }
