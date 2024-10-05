@@ -28,6 +28,9 @@ export const useAiConnectionsManager = () => {
             getDefaultAiConnection: async () => {
                 return defaultAiConnection;
             },
+            setDefaultAiConnection: async (id: string) => {
+                await db.appSettings.put({ key: SETTINGKEY_DEFAULT_AI_CONNECTION_ID, value: id });
+            },
             getAiConnectionById: async () => {
                 // TODO
             },

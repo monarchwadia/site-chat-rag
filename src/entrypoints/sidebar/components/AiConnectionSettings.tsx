@@ -8,7 +8,7 @@ type Props = React.PropsWithChildren<{
 
 export const AiConnectionSettings: React.FC<Props> = ({ }) => {
     const [formIsOpen, setFormIsOpen] = React.useState(false);
-    const { createAiConnection, listAllAiConnections, deleteAiConnection } = useAiConnectionsManager();
+    const { createAiConnection, listAllAiConnections, deleteAiConnection, setDefaultAiConnection } = useAiConnectionsManager();
 
     const aiConnections = listAllAiConnections() || [];
 
@@ -55,13 +55,17 @@ export const AiConnectionSettings: React.FC<Props> = ({ }) => {
                         <div key={aiConnection.id} className="card card-bordered">
                             <div className="card-body">
                                 <div className="card-title">{aiConnection.title}</div>
-                                <div><span className="font-bold">Provider: </span><span className="badge badge-neutral">{aiConnection.provider}</span></div>
-                                <button onClick={(e) => handleDeleteAiConnection(e, aiConnection.id)} className="btn btn-error w-fit btn-sm">Delete</button>
-                                {aiConnection.id}
-                                {aiConnections.defaultConnection?.id}
-                                {
-                                    aiConnection.id === aiConnections.defaultConnection?.id && <span className="badge badge-success">Default</span>
+                                {aiConnection.id === aiConnections.defaultConnection?.id
+                                    && <span className="badge badge-success">Default</span>
                                 }
+                                <div><span className="font-bold">Provider: </span><span className="badge badge-neutral">{aiConnection.provider}</span></div>
+                                <div className="flex flex-row gap-2">
+                                    <button onClick={(e) => handleDeleteAiConnection(e, aiConnection.id)} className="btn btn-error w-fit btn-sm">Delete</button>
+                                    {
+                                        aiConnection.id !== aiConnections.defaultConnection?.id
+                                        && <button className="btn btn-sm btn-ghost w-fit" onClick={() => setDefaultAiConnection(aiConnection.id)}>Set as Default</button>
+                                    }
+                                </div>
                             </div>
                         </div>
                     )
