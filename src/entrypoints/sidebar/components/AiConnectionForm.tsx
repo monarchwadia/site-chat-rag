@@ -1,10 +1,11 @@
-import React, { type FormEventHandler } from "react";
+import React, { type FormEventHandler, type MouseEventHandler } from "react";
 
 type Props = React.PropsWithChildren<{
     onSubmit: (newAiConnection: { title: string, provider: "openai", apiKey: string }) => void;
+    onClose: () => void;
 }>;
 
-export const AiConnectionForm: React.FC<Props> = ({ onSubmit }) => {
+export const AiConnectionForm: React.FC<Props> = ({ onSubmit, onClose }) => {
     const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
         // TODO: Implement this
@@ -18,6 +19,11 @@ export const AiConnectionForm: React.FC<Props> = ({ onSubmit }) => {
             alert("Missing title, provider or apiKey");
         }
     }
+    const handleClose: MouseEventHandler<HTMLButtonElement> = (e): void => {
+        e.preventDefault();
+        onClose();
+    }
+
     return (
         <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
             <input className="input input-sm input-bordered" type="text" id="title" placeholder="Title" />
@@ -26,6 +32,7 @@ export const AiConnectionForm: React.FC<Props> = ({ onSubmit }) => {
             </select>
             <input className="input input-sm input-bordered" type="text" id="apiKey" placeholder="API Key" />
             <button className="btn btn-sm  btn-info" type="submit">Create</button>
+            <button className="btn btn-sm  btn-ghost" onClick={handleClose}>Cancel</button>
         </form>
     )
 }

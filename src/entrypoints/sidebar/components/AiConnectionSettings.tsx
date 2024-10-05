@@ -7,6 +7,7 @@ type Props = React.PropsWithChildren<{
 }>;
 
 export const AiConnectionSettings: React.FC<Props> = ({ }) => {
+    const [formIsOpen, setFormIsOpen] = React.useState(false);
     const { createAiConnection, listAllAiConnections, deleteAiConnection } = useAiConnectionsManager();
 
     const aiConnections = listAllAiConnections() || [];
@@ -44,7 +45,10 @@ export const AiConnectionSettings: React.FC<Props> = ({ }) => {
 
     return (
         <div className="flex flex-col">
-            <AiConnectionForm onSubmit={handleCreateAiConnection} />
+            {formIsOpen
+                ? <AiConnectionForm onSubmit={handleCreateAiConnection} onClose={() => setFormIsOpen(false)} />
+                : <button onClick={() => setFormIsOpen(true)} className="btn btn-sm btn-success w-fit">Create New AI Connection</button>
+            }
             {
                 aiConnections.connections.map((aiConnection) => {
                     return (
