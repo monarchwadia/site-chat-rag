@@ -1,4 +1,4 @@
-import React, { type FormEventHandler } from "react";
+import React, { useEffect, type FormEventHandler } from "react";
 import { useChatSession } from "../../../hooks/useChatSession";
 import { ChatSessionMessage } from "./ChatSessionMessage/ChatSessionMessage";
 import type { AiConnection } from "../../../storage/db.types";
@@ -10,11 +10,19 @@ type Props = React.PropsWithChildren<{
 }>;
 
 export const ChatSession: React.FC<Props> = ({ }) => {
-    const { defaultAiConnection } = useAiConnectionsManager();
+    const { defaultAiConnection, useAiConnectionById } = useAiConnectionsManager();
+    const { lastChatSessionId, setLastChatSessionId } = useAppSettings();
+
 
     const { messages, sendMessage, status, isSendDisabled } = useChatSession({
         aiConnection: defaultAiConnection
     });
+
+    useEffect(() => {
+        if (lastChatSessionId) {
+            setLastChatSessionId(lastChatSessionId);
+        }
+    }, [lastChatSessionId])
 
     const handleSend: FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();

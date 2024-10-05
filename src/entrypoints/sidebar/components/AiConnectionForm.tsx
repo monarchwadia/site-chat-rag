@@ -2,7 +2,7 @@ import React, { type FormEventHandler, type MouseEventHandler } from "react";
 
 type Props = React.PropsWithChildren<{
     onSubmit: (newAiConnection: { title: string, provider: "openai", apiKey: string }) => void;
-    onClose: () => void;
+    onClose?: () => void;
 }>;
 
 export const AiConnectionForm: React.FC<Props> = ({ onSubmit, onClose }) => {
@@ -21,7 +21,9 @@ export const AiConnectionForm: React.FC<Props> = ({ onSubmit, onClose }) => {
     }
     const handleClose: MouseEventHandler<HTMLButtonElement> = (e): void => {
         e.preventDefault();
-        onClose();
+        if (onClose) {
+            onClose();
+        }
     }
 
     return (

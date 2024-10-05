@@ -8,9 +8,16 @@ type Props = React.PropsWithChildren<{
 
 export const AiConnectionSettings: React.FC<Props> = ({ }) => {
     const [formIsOpen, setFormIsOpen] = React.useState(false);
-    const { createAiConnection, listAllAiConnections, deleteAiConnection, setDefaultAiConnection } = useAiConnectionsManager();
+    const {
+        createAiConnection,
+        useListAllAiConnections,
+        deleteAiConnection,
+        setDefaultAiConnection,
+        useDefaultAiConnection
+    } = useAiConnectionsManager();
 
-    const aiConnections = listAllAiConnections() || [];
+    const aiConnections = useListAllAiConnections();
+    const defaultAiConnection = useDefaultAiConnection();
 
     const handleCreateAiConnection = async (newAiConnection: { title: string, provider: "openai", apiKey: string }) => {
         await createAiConnection({
@@ -27,7 +34,7 @@ export const AiConnectionSettings: React.FC<Props> = ({ }) => {
         confirm("Are you sure you want to delete this AI connection?") && await deleteAiConnection(id);
     }
 
-    if (!aiConnections.connections.length) {
+    if (!aiConnections.length) {
         return (
             <div className="flex flex-col">
                 <div className="hero bg-base-200">
@@ -50,20 +57,20 @@ export const AiConnectionSettings: React.FC<Props> = ({ }) => {
                 : <button onClick={() => setFormIsOpen(true)} className="btn btn-sm btn-success w-fit">Create New AI Connection</button>
             }
             {
-                aiConnections.connections.map((aiConnection) => {
+                aiConnections.map((aiConnection) => {
+                    const isDefault = defaultAiConnection.status === "resolved" && aiConnection.id === defaultAiConnection.result?.id;
                     return (
                         <div key={aiConnection.id} className="card card-bordered">
                             <div className="card-body">
                                 <div className="card-title">{aiConnection.title}</div>
-                                {aiConnection.id === aiConnections.defaultConnection?.id
-                                    && <span className="badge badge-success">Default</span>
+                                {
+                                    isDefault && <span className="badge badge-success">Default</span>
                                 }
                                 <div><span className="font-bold">Provider: </span><span className="badge badge-neutral">{aiConnection.provider}</span></div>
                                 <div className="flex flex-row gap-2">
                                     <button onClick={(e) => handleDeleteAiConnection(e, aiConnection.id)} className="btn btn-error w-fit btn-sm">Delete</button>
                                     {
-                                        aiConnection.id !== aiConnections.defaultConnection?.id
-                                        && <button className="btn btn-sm btn-ghost w-fit" onClick={() => setDefaultAiConnection(aiConnection.id)}>Set as Default</button>
+                                        !isDefault && <button className="btn btn-sm btn-ghost w-fit" onClick={() => setDefaultAiConnection(aiConnection.id)}>Set as Default</button>
                                     }
                                 </div>
                             </div>

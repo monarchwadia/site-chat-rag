@@ -1,9 +1,10 @@
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
 import { db } from "../storage/db"
 import type { AiConnection } from "../storage/db.types"
 import { v4 } from "uuid"
 import { useLiveQuery } from "dexie-react-hooks"
 import { useAppSettings } from "./useAppSettings"
+import { usePromiseResult } from "./usePromiseResult"
 
 /**
  * This AiConnectionManager uses Dexie to CRUDL the various AI connections.
@@ -19,8 +20,6 @@ export const useAiConnectionsManager = () => {
         setLastChatSessionId
     } = useAppSettings();
 
-    const defaultAiConnection = allAiConnections?.find((aiConnection) => aiConnection.id === defaultAiConnectionId);
-
     const obj = useMemo(() => {
         return {
             createAiConnection: async (aiConnection: Pick<AiConnection, 'title' | 'credentialsJson' | 'provider'>) => {
@@ -32,15 +31,8 @@ export const useAiConnectionsManager = () => {
                 const newId = await db.aiConnections.add({ id, ...aiConnection });
                 return newId;
             },
-            defaultAiConnection,
             setDefaultAiConnection: async (id: string) => {
                 await setDefaultAiConnectionId(id);
-            },
-            getAiConnectionById: async () => {
-                // TODO
-            },
-            updateAiConnection: async () => {
-                // TODO
             },
             deleteAiConnection: async (id: string) => {
                 let defaultWasDeleted = false;
@@ -61,14 +53,31 @@ export const useAiConnectionsManager = () => {
 
                 return deletedId;
             },
-            listAllAiConnections: () => {
-                return {
-                    connections: allAiConnections || [],
-                    defaultConnection: defaultAiConnection
+            useAiConnectionById: (id: string) => {
+                return usePromiseResult(db.aiConnections.get(id), [id]);
+            },
+            useListAllAiConnections: () => {
+                const aiConnections = useLiveQuery(() => db.aiConnections.toArray(), []);
+
+                return aiConnections || [];
+            },
+            useDefaultAiConnection: () => {
+                const getDefaultAiConnection = async () => {
+                    if (!defaultAiConnectionId) {
+                        return undefined;
+                    }
+
+                    return db.aiConnections.get(defaultAiConnectionId);
                 }
+
+                const promise = useMemo(() => {
+                    return getDefaultAiConnection();
+                }, [defaultAiConnectionId])
+
+                return usePromiseResult(promise, [defaultAiConnectionId]);
             }
         }
-    }, [allAiConnections, defaultAiConnectionId, defaultAiConnection])
+    }, [allAiConnections, defaultAiConnectionId])
 
     return obj;
 }
