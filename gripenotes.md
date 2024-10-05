@@ -63,3 +63,5 @@ Made improvements in various areas. Turns out that the difficulties with chat be
     // Issue 1: newMessages has duplicated the `m` message here, leading to unreliable history.
     // Issue 2: I don't have access to just the new responses. Since we're manually managing history, this is a problem, because clippings need to be removed from the history for each chat run.
 ```
+
+Looks like a Ragged bug. Need to fix this first.
