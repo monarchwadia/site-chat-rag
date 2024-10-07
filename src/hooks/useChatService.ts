@@ -56,7 +56,7 @@ export const useChatService = (opts: UseChatSessionOpts) => {
 
         // generate clippings context
         let clippingsContext = ''
-        if (clippings) {
+        if (clippings?.length) {
             clippingsContext += 'The following are clippings from the user\'s library. You can use these to generate responses.\n'
             clippings.forEach((clipping) => {
                 clippingsContext += '--------------------------------\n'
@@ -84,7 +84,7 @@ export const useChatService = (opts: UseChatSessionOpts) => {
 
 
         setIsBusy(true);
-        const { history: newMessages } = await c.chat(m);
+        const { history: newMessages } = await c.chat();
         setMessages(newMessages);
         if (chatSession?.id) {
             await updateChatSession(chatSession.id, { messages: newMessages, lastUsedAiConnectionId: aiConnection.id });

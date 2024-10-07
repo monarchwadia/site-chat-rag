@@ -65,3 +65,7 @@ Made improvements in various areas. Turns out that the difficulties with chat be
 ```
 
 Looks like a Ragged bug. Need to fix this first.
+
+---
+
+Oh, wasn't a Ragged bug. I just accidentally was passing in the last message twice. Fixed that.

@@ -25,7 +25,6 @@ export const ChatSessionComponent: React.FC<Props> = ({ }) => {
     return (
         <div className="flex flex-col">
             {messages.map((msg, i) => <ChatSessionMessage message={msg} key={JSON.stringify(msg) + '-' + i} />)}
-            {messages.map((msg, i) => <div key={JSON.stringify(msg) + '-' + i}>{JSON.stringify(msg) + '-' + i}</div>)}
             <hr className="divider" />
             <div>Status: {status}</div>
             <form className="flex flex-row" onSubmit={handleSend}>
