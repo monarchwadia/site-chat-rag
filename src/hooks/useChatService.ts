@@ -44,7 +44,6 @@ export const useChatService = (opts: UseChatSessionOpts) => {
     }
 
     const handleChat = async (m: string) => {
-        debugger;
         if (status !== "idle" || !aiConnection) {
             return;
         }
@@ -60,9 +59,10 @@ export const useChatService = (opts: UseChatSessionOpts) => {
             clippingsContext += 'The following are clippings from the user\'s library. You can use these to generate responses.\n'
             clippings.forEach((clipping) => {
                 clippingsContext += '--------------------------------\n'
-                clippingsContext += '# Title: ' + clipping.title || '<No title provided>\n'
-                clippingsContext += clipping.title + '\n'
-            })
+                clippingsContext += ('# Title: ' + clipping.title || '<No title provided>') + '\n\n'
+                clippingsContext += clipping.text + '\n\n'
+            });
+            clippingsContext += '--------------------------------\n'
         } else {
             clippingsContext = 'No clippings were added.'
         }
@@ -81,10 +81,9 @@ export const useChatService = (opts: UseChatSessionOpts) => {
             ...messagesClone
         ]
 
-
-
         setIsBusy(true);
         const { history: newMessages } = await c.chat();
+
         setMessages(newMessages);
         if (chatSession?.id) {
             await updateChatSession(chatSession.id, { messages: newMessages, lastUsedAiConnectionId: aiConnection.id });
