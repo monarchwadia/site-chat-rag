@@ -34,5 +34,5 @@ const routes: RouteObject[] = [
     },
 ]
 
-const sidebarRouter = createMemoryRouter(routes, { initialEntries: ["/chat"] });
+const sidebarRouter = createMemoryRouter(routes, { initialEntries: ["/"] });
 export const SidebarRouterProvider = () => <RouterProvider router={sidebarRouter} />;

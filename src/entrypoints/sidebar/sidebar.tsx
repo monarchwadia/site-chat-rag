@@ -18,11 +18,7 @@ const Main = () => {
     });
 
     return (
-        <div className="flex flex-col">
-            <SidebarRouterProvider />
-            {/* <CommsTestWidget label="Sidebar" />
-            <TextClippingEditor value={clipping} onChange={setClipping} /> */}
-        </div>
+        <SidebarRouterProvider />
     )
 }
 
