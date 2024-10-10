@@ -2,14 +2,26 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { NewtabPageWrapper } from "../components/NewtabPageWrapper";
 import { useCurrentTime } from "../../../hooks/useCurrentTime";
+import { SidebarOpener } from "../../../messaging/SidebarOpener";
 
 type LinkRef = {
     to: string;
     title: string;
 }
+    | {
+        action: Function;
+        title: string;
+    }
 const links = [
     { to: "/clippings-explorer", title: "Clippings" },
-    { to: "/chat", title: "Chat" },
+    {
+        title: "Chat", action: async () => {
+            const sidebarOpener = new SidebarOpener();
+            await sidebarOpener.openSidebar({
+                targetPage: "/chat"
+            });
+        }
+    },
     { to: "/settings", title: "Settings" },
 ]
 
@@ -22,6 +34,14 @@ export const NewtabHomepage: React.FC = () => {
                 <div className="flex flex-row gap-4 py-4">
                     {
                         links.map((link: LinkRef) => {
+                            if ('action' in link) {
+                                return (
+                                    <button key={link.title} className="link" onClick={() => link.action()}>
+                                        {link.title}
+                                    </button>
+                                )
+                            }
+
                             return (
                                 <Link key={link.to} className="link" to={link.to}>
                                     {link.title}
