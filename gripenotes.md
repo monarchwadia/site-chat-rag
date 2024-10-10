@@ -82,3 +82,28 @@ Todo:
 - Add the ability to autogenerate clippings from the website itself
 - Add the ability to add entire conversations as clippings
 
+## User stories
+
+### New tab
+
+- When I open a new tab, I see the dashboard.
+- The dashboard contains my most recent conversations.
+- The dashboard contains my most recent clippings.
+- The dashboard contains a link to the Settings.
+- I can click on a conversation to see the conversation in the sidebar.
+- I can click on a clipping to see the clipping in the sidebar.
+- I can modify my settings in the new tab.
+
+### Popup
+
+- The popup contains a link to settings, which opens in a new tab.
+- The popup contains a link to the dashboard, which opens in a new tab.
+- The popup contains a link to the sidebar, which opens the side panel home.
+- The popup contains a link to clippings, which opens in a new tab.
+
+### Side panel
+
+- The side panel contains a link to the dashboard, which opens in a new tab.
+- The side panel contains a link to the settings, which opens in a new tab.
+- The side panel contains a link to the clippings, which opens in a new tab.
+- The side panel contains my current conversation.
