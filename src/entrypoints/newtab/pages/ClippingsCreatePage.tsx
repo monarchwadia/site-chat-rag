@@ -2,7 +2,7 @@ import { useLiveQuery } from "dexie-react-hooks";
 import React from "react";
 import { Link } from "react-router-dom";
 import { db } from "../../../storage/db";
-import { CreateClippingsForm, type TextClippingsFormSubmitValue } from "../../sidebar/components/CreateClippingsForm";
+import { CreateClippingsForm, type TextClippingsFormSubmitValue } from "../../../components/CreateClippingsForm";
 import { createTextClipping } from "../../../storage/textClippings.dao";
 import { useNavigate } from 'react-router-dom';
 import { NewtabPageWrapper } from "../components/NewtabPageWrapper";
