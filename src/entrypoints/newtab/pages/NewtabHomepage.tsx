@@ -12,43 +12,52 @@ type LinkRef = {
         action: Function;
         title: string;
     }
-const links = [
+const leftLinks = [
     { to: "/clippings-explorer", title: "Clippings" },
-    {
-        title: "Chat", action: async () => {
-            const sidebarOpener = new SidebarOpener();
-            await sidebarOpener.openSidebar({
-                targetPage: "/chat"
-            });
-        }
-    },
     { to: "/settings", title: "Settings" },
 ]
 
 export const NewtabHomepage: React.FC = () => {
     const { clockTimeString, dateString } = useCurrentTime();
 
+    const openSidebarChat = async () => {
+        try {
+            const sidebarOpener = new SidebarOpener();
+            await sidebarOpener.openSidebar({
+                targetPage: "/chat"
+            });
+        } catch (e) {
+            console.error("Could not open sidebar", e);
+        }
+    }
+
     return (
         <NewtabPageWrapper pageTitle="" hideNavigationBar hidePageTitle>
             <div className="flex flex-col h-full">
-                <div className="flex flex-row gap-4 py-4">
-                    {
-                        links.map((link: LinkRef) => {
-                            if ('action' in link) {
-                                return (
-                                    <button key={link.title} className="link" onClick={() => link.action()}>
-                                        {link.title}
-                                    </button>
-                                )
-                            }
+                <div className="flex flex-row justify-between py-4">
+                    <div className="flex flex-row gap-4">
+                        {
+                            leftLinks.map((link: LinkRef) => {
+                                if ('action' in link) {
+                                    return (
+                                        <button key={link.title} className="link" onClick={() => link.action()}>
+                                            {link.title}
+                                        </button>
+                                    )
+                                }
 
-                            return (
-                                <Link key={link.to} className="link" to={link.to}>
-                                    {link.title}
-                                </Link>
-                            )
-                        })
-                    }
+                                return (
+                                    <Link key={link.to} className="link" to={link.to}>
+                                        {link.title}
+                                    </Link>
+                                )
+                            })
+                        }
+                    </div>
+                    <div className="flex flex-row gap-4">
+                        <div className="btn btn-info" onClick={() => openSidebarChat()}>Open Chat</div>
+                    </div>
+
                 </div>
                 <div className="flex-grow-[2]">&nbsp;</div>
                 <div className="flex flex-col text-4xl font-bold text-center justify-center gap-4 flex-grow-[4]">
