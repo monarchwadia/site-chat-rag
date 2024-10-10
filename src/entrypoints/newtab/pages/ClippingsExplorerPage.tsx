@@ -2,13 +2,13 @@ import { useLiveQuery } from "dexie-react-hooks";
 import React from "react";
 import { Link } from "react-router-dom";
 import { db } from "../../../storage/db";
-import { SidebarPageWrapper } from "../components/SidebarPageWrapper";
+import { NewtabPageWrapper } from "../components/NewtabPageWrapper";
 
-export const SidebarClippingsExplorerPage: React.FC = () => {
+export const ClippingsExplorerPage: React.FC = () => {
     const clippings = useLiveQuery(() => db.textClippings.toArray());
 
     return (
-        <SidebarPageWrapper pageTitle="Clippings Explorer">
+        <NewtabPageWrapper pageTitle="Clippings Explorer">
             <Link to="/clippings-create" className="btn btn-info w-fit btn-xs">Create Clipping</Link>
             <div className="flex flex-col">
                 {
@@ -20,6 +20,6 @@ export const SidebarClippingsExplorerPage: React.FC = () => {
                     !clippings?.length && <p>No clippings yet</p>
                 }
             </div>
-        </SidebarPageWrapper>
+        </NewtabPageWrapper>
     )
 }

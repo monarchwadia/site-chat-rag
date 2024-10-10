@@ -1,15 +1,11 @@
 import { useLiveQuery } from "dexie-react-hooks";
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { db } from "../../../storage/db";
-import { SidebarPageWrapper } from "../components/SidebarPageWrapper";
-import { CreateClippingsForm, type TextClippingsFormSubmitValue } from "../components/CreateClippingsForm";
-import { createTextClipping } from "../../../storage/textClippings.dao";
-import { useNavigate } from 'react-router-dom';
-import { liveQuery } from "dexie";
+import { SidebarPageWrapper } from "../../sidebar/components/SidebarPageWrapper";
 
 
-export const SidebarClippingsViewPage: React.FC = () => {
+export const ClippingsViewPage: React.FC = () => {
     const { textClippingId } = useParams();
     const clipping = useLiveQuery(() => db.textClippings.get({ 'id': textClippingId }));
 

@@ -1,8 +1,6 @@
 import React from "react";
-import { ChatSessionComponent } from "../components/ChatSessionComponent";
-import { SidebarPageWrapper } from "../components/SidebarPageWrapper";
-import { useAiConnectionsManager } from "../../../hooks/useDbAiConnections";
-import { AiConnectionSettings } from "../components/AiConnectionSettings";
+import { AiConnectionSettings } from "../../../components/AiConnectionSettings";
+import { NewtabPageWrapper } from "../components/NewtabPageWrapper";
 
 type Props = React.PropsWithChildren<{
 
@@ -10,13 +8,13 @@ type Props = React.PropsWithChildren<{
 
 export const SettingsPage: React.FC<Props> = ({ }) => {
     return (
-        <SidebarPageWrapper pageTitle="Settings">
+        <NewtabPageWrapper pageTitle="Settings">
             <div className="flex flex-col">
                 <div className="flex flex-col">
                     <h2 className="text-lg font-bold">AI Connection Settings</h2>
                     <AiConnectionSettings />
                 </div>
             </div>
-        </SidebarPageWrapper>
+        </NewtabPageWrapper>
     )
 }

@@ -2,13 +2,13 @@ import { useLiveQuery } from "dexie-react-hooks";
 import React from "react";
 import { Link } from "react-router-dom";
 import { db } from "../../../storage/db";
-import { SidebarPageWrapper } from "../components/SidebarPageWrapper";
-import { CreateClippingsForm, type TextClippingsFormSubmitValue } from "../components/CreateClippingsForm";
+import { CreateClippingsForm, type TextClippingsFormSubmitValue } from "../../sidebar/components/CreateClippingsForm";
 import { createTextClipping } from "../../../storage/textClippings.dao";
 import { useNavigate } from 'react-router-dom';
+import { NewtabPageWrapper } from "../components/NewtabPageWrapper";
 
 
-export const SidebarClippingsCreatePage: React.FC = () => {
+export const ClippingsCreatePage: React.FC = () => {
     const navigate = useNavigate();
 
     const handleSubmit = async (val: TextClippingsFormSubmitValue) => {
@@ -17,10 +17,10 @@ export const SidebarClippingsCreatePage: React.FC = () => {
     }
 
     return (
-        <SidebarPageWrapper pageTitle="Create Clipping">
+        <NewtabPageWrapper pageTitle="Create Clipping">
             <div className="flex flex-col">
                 <CreateClippingsForm onSubmit={handleSubmit} />
             </div>
-        </SidebarPageWrapper>
+        </NewtabPageWrapper>
     )
 }

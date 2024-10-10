@@ -2,7 +2,7 @@ import React from "react";
 import { ChatSessionComponent } from "../components/ChatSessionComponent";
 import { SidebarPageWrapper } from "../components/SidebarPageWrapper";
 import { useAiConnectionsManager } from "../../../hooks/useDbAiConnections";
-import { AiConnectionSettings } from "../components/AiConnectionSettings";
+import { AiConnectionSettings } from "../../../components/AiConnectionSettings";
 import { useAllChatSessions } from "../../../hooks/useDbChatSessions";
 import { useAppSettings } from "../../../hooks/useAppSettings";
 

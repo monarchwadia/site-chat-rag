@@ -1,5 +1,5 @@
 import React from "react";
-import { useAiConnectionsManager } from "../../../hooks/useDbAiConnections";
+import { useAiConnectionsManager } from "../hooks/useDbAiConnections";
 import { AiConnectionForm } from "./AiConnectionForm";
 
 type Props = React.PropsWithChildren<{
