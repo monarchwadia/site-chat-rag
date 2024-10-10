@@ -5,7 +5,7 @@
     "manifest_version": 3,
     "minimum_chrome_version": "120",
     "chrome_url_overrides": {
-        "newtab": "entrypoints/sidebar/sidebar.html"
+        "newtab": "entrypoints/newtab/newtab.html"
     },
     "side_panel": {
         "default_path": "entrypoints/sidebar/sidebar.html"
