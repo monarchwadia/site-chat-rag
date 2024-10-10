@@ -69,3 +69,16 @@ Looks like a Ragged bug. Need to fix this first.
 ---
 
 Oh, wasn't a Ragged bug. I just accidentally was passing in the last message twice. Fixed that.
+
+# 2024-10-10
+
+I will now code at least 4 hours a day.
+
+Todo:
+
+- Beautify the UX/UI
+- Add CRUD buttons where they need to be added
+- Add the ability to add clippings by pasting the website itself
+- Add the ability to autogenerate clippings from the website itself
+- Add the ability to add entire conversations as clippings
+
