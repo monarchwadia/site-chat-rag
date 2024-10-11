@@ -14,6 +14,7 @@ type LinkRef = {
     }
 const leftLinks = [
     { to: "/clippings-explorer", title: "Clippings" },
+    { to: "/history", title: "History" },
     { to: "/settings", title: "Settings" },
 ]
 

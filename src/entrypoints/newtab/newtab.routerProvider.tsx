@@ -6,6 +6,7 @@ import { SettingsPage } from "./pages/SettingsPage";
 import { ClippingsCreatePage } from "./pages/ClippingsCreatePage";
 import { ClippingsViewPage } from "./pages/ClippingsViewPage";
 import { ClippingsExplorerPage } from "./pages/ClippingsExplorerPage";
+import { HistoryPage } from "./pages/HistoryPage";
 
 const routes: RouteObject[] = [
     {
@@ -28,6 +29,10 @@ const routes: RouteObject[] = [
         path: "/clippings-view/:textClippingId",
         element: <ClippingsViewPage />
     },
+    {
+        path: "/history",
+        element: <HistoryPage />
+    }
 ]
 
 const newtabRouter = createMemoryRouter(routes, { initialEntries: ["/"] });
