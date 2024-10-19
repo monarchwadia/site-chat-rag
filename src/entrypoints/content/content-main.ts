@@ -2,7 +2,7 @@ import { liveQuery } from "dexie";
 import { db } from "../../storage/db";
 import { MKEY_CAPTURE_WEBSITE_TEXT_FAILURE, MKEY_CAPTURE_WEBSITE_TEXT_REQUEST, MKEY_CAPTURE_WEBSITE_TEXT_SUCCESS } from "../../constants";
 
-export function contentMain() {
+(function contentMain() {
     console.log('Content script loaded!') // TODO: remove
 
     chrome.runtime.onMessage.addListener((message) => {
@@ -44,4 +44,4 @@ export function contentMain() {
                 break;
         }
     });
-}
+})();

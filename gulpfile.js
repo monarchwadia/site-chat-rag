@@ -36,14 +36,13 @@ gulp.task('copyFiles', function () {
         .pipe(gulp.dest('./dist/'));
 })
 
-gulp.task('rollup', function rollupTask() {
+gulp.task('rollup-most-files', function rollupTask() {
     return rollup.rollup({
         input: {
             "entrypoints/newtab/newtab": './src/entrypoints/newtab/newtab.tsx',
             "entrypoints/popup/popup": './src/entrypoints/popup/popup.tsx',
             "entrypoints/sidebar/sidebar": './src/entrypoints/sidebar/sidebar.tsx',
             "entrypoints/content/content": './src/entrypoints/content/content.ts',
-            "entrypoints/content/content-main": './src/entrypoints/content/content-main.ts'
         },
         plugins: [
             commonjs(), // Convert CommonJS modules to ES6, so they can be included in a Rollup bundle
@@ -71,6 +70,37 @@ gulp.task('rollup', function rollupTask() {
     });
 });
 
+gulp.task('rollup-content-main', function rollupTask() {
+    return rollup.rollup({
+        input: {
+            "entrypoints/content/content-main": './src/entrypoints/content/content-main.ts'
+        },
+        plugins: [
+            commonjs(), // Convert CommonJS modules to ES6, so they can be included in a Rollup bundle
+            nodeResolve({
+                extensions: ['.js', '.jsx', '.ts', '.tsx']
+            }), // Import modules and include in the bundle
+            rollupBabel({ // Transpile React and Typescript
+                babelHelpers: 'bundled',
+                presets: [['@babel/preset-typescript'], ['@babel/preset-react', { "runtime": "automatic" }]],
+                sourceMaps: "both",
+                extensions: ['.js', '.jsx', '.es6', '.es', '.mjs', '.tsx', '.ts'],
+                minified: process.env.NODE_ENV === 'production'
+            }),
+            replace({ // Previous step uses `process.env` so we need to replace it
+                'process.env.NODE_ENV': process.env.NODE_ENV === 'production' ? JSON.stringify('production') : JSON.stringify('development'),
+                __buildDate__: () => JSON.stringify(new Date()),
+                __buildVersion: 15
+            })
+        ]
+    }).then(bundle => {
+        return bundle.write({
+            dir: './dist/',
+            format: 'iife'
+        });
+    });
+});
+
 gulp.task('postcss', function () {
     return gulp.src([
         './src/*.css'
@@ -80,6 +110,8 @@ gulp.task('postcss', function () {
 })
 
 // === Main tasks ===
+
+gulp.task('rollup', gulp.parallel('rollup-most-files', 'rollup-content-main'));
 
 gulp.task('build', gulp.series('clean', 'copyFiles', 'postcss', 'rollup'));
 
