@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { CommsTestWidget } from "../../components/CommsTestWidget";
 import { v4 } from 'uuid';
 import { MKEY_CAPTURE_WEBSITE_TEXT_FAILURE, MKEY_CAPTURE_WEBSITE_TEXT_REQUEST, MKEY_CAPTURE_WEBSITE_TEXT_SUCCESS } from "../../constants";
+import { db } from "../../storage/db";
 
 // Render your React component instead
 const rootElem = document.getElementById('out');
@@ -14,7 +15,7 @@ const Main = () => {
 
     useEffect(() => {
         // listen for capture-innerhtml-success and capture-innerhtml-failure
-        const listener = (message: any, sender: chrome.runtime.MessageSender) => {
+        const listener = async (message: any, sender: chrome.runtime.MessageSender) => {
             if (message?.payload?.requestId && requestIdsSet.has(message.payload.requestId)) {
                 // remove from requestIds
                 requestIdsSet.delete(message.payload.requestId);
@@ -26,6 +27,11 @@ const Main = () => {
                         console.log('captured text', message.payload.text);
 
                         // persist to storage
+                        const newClipping = await db.textClippings.add({
+                            id: v4(),
+                            title: message.payload.pageTitle,
+                            text: message.payload.text,
+                        })
                         // show success message
                         break;
                     case MKEY_CAPTURE_WEBSITE_TEXT_FAILURE:

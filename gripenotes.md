@@ -84,6 +84,10 @@ Todo:
 
 ## User stories
 
+### Functionality
+
+- [ ] Make model configurable. Right now it's just gpt-4o
+
 ### New tab
 
 - [x] When I open a new tab, I see the dashboard.

@@ -82,7 +82,9 @@ export const useChatService = (opts: UseChatSessionOpts) => {
         ]
 
         setIsBusy(true);
-        const { history: newMessages } = await c.chat();
+        const { history: newMessages } = await c.chat({
+            model: 'gpt-4o', // TODO: make this configurable
+        });
 
         setMessages(newMessages);
         if (chatSession?.id) {
