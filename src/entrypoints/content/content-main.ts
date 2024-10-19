@@ -22,9 +22,6 @@ const getBodyText = () => {
 
     chrome.runtime.onMessage.addListener((message) => {
         switch (message.type) {
-            case 'zap':
-                alert('I was zapped!');
-                break;
             case MKEY_CAPTURE_WEBSITE_TEXT_REQUEST:
                 const str = getBodyText();
                 if (!str) {

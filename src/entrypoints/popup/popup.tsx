@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { createRoot } from 'react-dom/client';
-import { CommsTestWidget } from "../../components/CommsTestWidget";
 import { v4 } from 'uuid';
 import { MKEY_CAPTURE_WEBSITE_TEXT_FAILURE, MKEY_CAPTURE_WEBSITE_TEXT_REQUEST, MKEY_CAPTURE_WEBSITE_TEXT_SUCCESS } from "../../constants";
 import { db } from "../../storage/db";
@@ -87,7 +86,6 @@ const Main = () => {
         <div>
             <button className="btn btn-info btn-sm w-fit" onClick={handleCapturePage}>Capture page as clipping</button>
             <button className="btn btn-info btn-sm w-fit" onClick={openSidebarChat}>Open Chat</button>
-            <CommsTestWidget label="Popup" />
         </div>
     )
 }
