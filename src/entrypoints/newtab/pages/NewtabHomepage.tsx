@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { NewtabPageWrapper } from "../components/NewtabPageWrapper";
 import { useCurrentTime } from "../../../hooks/useCurrentTime";
 import { SidebarOpener } from "../../../messaging/SidebarOpener";
+import { openSidebarChat } from "../../../utils/openSidebarChat";
 
 type LinkRef = {
     to: string;
@@ -20,17 +21,6 @@ const leftLinks = [
 
 export const NewtabHomepage: React.FC = () => {
     const { clockTimeString, dateString } = useCurrentTime();
-
-    const openSidebarChat = async () => {
-        try {
-            const sidebarOpener = new SidebarOpener();
-            await sidebarOpener.openSidebar({
-                targetPage: "/chat"
-            });
-        } catch (e) {
-            console.error("Could not open sidebar", e);
-        }
-    }
 
     return (
         <NewtabPageWrapper pageTitle="" hideNavigationBar hidePageTitle>

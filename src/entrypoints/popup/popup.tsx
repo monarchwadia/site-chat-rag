@@ -4,6 +4,7 @@ import { CommsTestWidget } from "../../components/CommsTestWidget";
 import { v4 } from 'uuid';
 import { MKEY_CAPTURE_WEBSITE_TEXT_FAILURE, MKEY_CAPTURE_WEBSITE_TEXT_REQUEST, MKEY_CAPTURE_WEBSITE_TEXT_SUCCESS } from "../../constants";
 import { db } from "../../storage/db";
+import { openSidebarChat } from "../../utils/openSidebarChat";
 
 // Render your React component instead
 const rootElem = document.getElementById('out');
@@ -84,7 +85,8 @@ const Main = () => {
 
     return (
         <div>
-            <button className="btn btn-info" onClick={handleCapturePage}>Capture page as clipping</button>
+            <button className="btn btn-info btn-sm w-fit" onClick={handleCapturePage}>Capture page as clipping</button>
+            <button className="btn btn-info btn-sm w-fit" onClick={openSidebarChat}>Open Chat</button>
             <CommsTestWidget label="Popup" />
         </div>
     )
