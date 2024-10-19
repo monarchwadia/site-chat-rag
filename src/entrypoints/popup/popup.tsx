@@ -83,9 +83,9 @@ const Main = () => {
     }
 
     return (
-        <div>
-            <button className="btn btn-info btn-sm w-fit" onClick={handleCapturePage}>Capture page as clipping</button>
-            <button className="btn btn-info btn-sm w-fit" onClick={openSidebarChat}>Open Chat</button>
+        <div className="flex flex-col gap-2 p-4 min-w-44 w-fit">
+            <button className="btn btn-info btn-sm" onClick={handleCapturePage}>✂️ Clip Page</button>
+            <button className="btn btn-info btn-sm" onClick={openSidebarChat}>Open Chat</button>
         </div>
     )
 }
