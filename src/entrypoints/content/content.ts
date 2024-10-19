@@ -6,8 +6,29 @@ import { db } from "../../storage/db";
 
     chrome.runtime.onMessage.addListener((message) => {
         alert('message received');
-        if (message.type === 'zap') {
-            alert('I was zapped!')
+        debugger;
+        switch (message.type) {
+            case 'zap':
+                alert('I was zapped!');
+                break;
+            case 'capture-innerhtml-request':
+                alert('Capture inner html request received');
+                // get innerhtml
+                const headInnerHTML = document.head.innerHTML;
+                const bodyInnerHTML = document.body.innerHTML;
+
+                // send message back
+                chrome.runtime.sendMessage({
+                    type: 'capture-innerhtml-success',
+                    payload: {
+                        requestId: message.payload.requestId,
+                        head: headInnerHTML,
+                        body: bodyInnerHTML
+                    }
+                });
+
+                // convert to text
+                break;
         }
     });
 })()
