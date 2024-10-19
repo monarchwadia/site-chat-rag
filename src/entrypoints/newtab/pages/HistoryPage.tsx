@@ -2,13 +2,14 @@ import React from "react";
 import { NewtabPageWrapper } from "../components/NewtabPageWrapper";
 import { useAllChatSessions } from "../../../hooks/useDbChatSessions";
 import { useAppSettings } from "../../../hooks/useAppSettings";
+import { ChatHistoryList } from "../../../components/ChatHistoryList";
 
 type Props = React.PropsWithChildren<{
 
 }>;
 
 export const HistoryPage: React.FC<Props> = ({ }) => {
-    const chatSessions = useAllChatSessions();
+    const { chatSessions, pinnedChatSession } = useAllChatSessions();
     const { setPinnedChatSessionId } = useAppSettings();
 
     const pinChatSession = async (id: string) => {
@@ -19,13 +20,13 @@ export const HistoryPage: React.FC<Props> = ({ }) => {
         <NewtabPageWrapper pageTitle="History">
             <div className="flex flex-col">
                 <h2 className="text-lg font-bold">Chat Sessions</h2>
-                {chatSessions.map((cs) => (
-                    <div className="card card-bordered" key={cs.id} onClick={() => pinChatSession(cs.id)}>
-                        <div className="card-body">
-                            <div>{cs.id}</div>
-                        </div>
-                    </div>
-                ))}
+                {
+                    <ChatHistoryList
+                        chatSessions={chatSessions}
+                        pinnedChatSessionId={pinnedChatSession?.id}
+                        onChatSessionClick={pinChatSession}
+                    />
+                }
             </div>
         </NewtabPageWrapper>
     )

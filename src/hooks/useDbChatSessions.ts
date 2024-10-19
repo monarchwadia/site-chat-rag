@@ -1,9 +1,17 @@
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "../storage/db";
+import { useAppSettings } from "./useAppSettings";
 
 export const useAllChatSessions = () => {
-    const x = useLiveQuery(() => db.chatSessions.toArray(), []);
-    return x || [];
+    const chatSessions = useLiveQuery(() => db.chatSessions.toArray(), []);
+    const { pinnedChatSessionId } = useAppSettings();
+
+    const pinnedChatSession = chatSessions?.find((session) => session.id === pinnedChatSessionId);
+
+    return {
+        chatSessions: chatSessions || [],
+        pinnedChatSession
+    }
 }
 
 export const useChatSessionById = (id: string | undefined) => {
