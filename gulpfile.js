@@ -42,7 +42,8 @@ gulp.task('rollup', function rollupTask() {
             "entrypoints/newtab/newtab": './src/entrypoints/newtab/newtab.tsx',
             "entrypoints/popup/popup": './src/entrypoints/popup/popup.tsx',
             "entrypoints/sidebar/sidebar": './src/entrypoints/sidebar/sidebar.tsx',
-            "entrypoints/content/content": './src/entrypoints/content/content.ts'
+            "entrypoints/content/content": './src/entrypoints/content/content.ts',
+            "entrypoints/content/content-main": './src/entrypoints/content/content-main.ts'
         },
         plugins: [
             commonjs(), // Convert CommonJS modules to ES6, so they can be included in a Rollup bundle

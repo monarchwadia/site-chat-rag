@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { createRoot } from 'react-dom/client';
 import { CommsTestWidget } from "../../components/CommsTestWidget";
 import { v4 } from 'uuid';
+import { MKEY_CAPTURE_WEBSITE_TEXT_FAILURE, MKEY_CAPTURE_WEBSITE_TEXT_REQUEST, MKEY_CAPTURE_WEBSITE_TEXT_SUCCESS } from "../../constants";
 
 // Render your React component instead
 const rootElem = document.getElementById('out');
@@ -17,22 +18,30 @@ const Main = () => {
             if (message?.payload?.requestId && requestIdsSet.has(message.payload.requestId)) {
                 // remove from requestIds
                 requestIdsSet.delete(message.payload.requestId);
-                if (message.type === 'capture-innerhtml-success') {
-                    console.log('captured inner html', message.payload);
-                    alert('captured inner html');
-                    // persist to storage
-                    // show success message
-                } else if (message.type === 'capture-innerhtml-failure') {
-                    console.error('failed to capture inner html', message.payload.error);
-                    alert('failed to capture inner html');
-                    // show failure message
+
+                switch (message.type) {
+                    case MKEY_CAPTURE_WEBSITE_TEXT_SUCCESS:
+                        console.log('captured inner html', message.payload);
+                        // convert html to text
+                        console.log('captured text', message.payload.text);
+
+                        // persist to storage
+                        // show success message
+                        break;
+                    case MKEY_CAPTURE_WEBSITE_TEXT_FAILURE:
+                        console.error('failed to capture inner html', message.payload);
+                        // TODO: show error message
+                        break;
+                    default:
+                        console.error('unexpected message', message);
+                        break;
                 }
             }
-
-            // convert html to text
-            // persist text to storage
-            // show success message
         }
+
+
+        // persist text to storage
+        // show success message
 
         chrome.runtime.onMessage.addListener(listener);
 
@@ -60,7 +69,7 @@ const Main = () => {
         requestIdsSet.add(uuid);
 
         await chrome.tabs.sendMessage(tab.id, {
-            type: 'capture-innerhtml-request',
+            type: MKEY_CAPTURE_WEBSITE_TEXT_REQUEST,
             payload: {
                 requestId: uuid
             }
