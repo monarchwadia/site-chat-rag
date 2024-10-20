@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { SidebarPageWrapper } from "../components/SidebarPageWrapper";
-import { db } from "../../../storage/db";
-import { useLiveQuery } from "dexie-react-hooks";
 import { useAllChatSessions } from "../../../hooks/useDbChatSessions";
 import { ChatHistoryList } from "../../../components/ChatHistoryList";
 import { useAppSettings } from "../../../hooks/useAppSettings";
@@ -12,7 +10,7 @@ export const SidebarHomePage: React.FC = () => {
     const { setPinnedChatSessionId } = useAppSettings();
 
     return (
-        <SidebarPageWrapper pageTitle="Sidebar Home" hideNavigationBar hidePageTitle>
+        <SidebarPageWrapper>
             <Link to="/chat">Go to Page 1</Link>
             <div className="flex flex-col gap-2">
                 <ChatHistoryList

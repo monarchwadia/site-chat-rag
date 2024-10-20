@@ -23,18 +23,21 @@ export const ChatSessionComponent: React.FC<Props> = ({ }) => {
     }
 
     return (
-        <div className="flex flex-col">
-            {messages.map((msg, i) => <ChatSessionMessage message={msg} key={JSON.stringify(msg) + '-' + i} />)}
-            <hr className="divider" />
-            <div>Status: {status}</div>
-            <form className="flex flex-row" onSubmit={handleSend}>
-                <div className="flex-grow">
-                    <textarea id="chat-input" className="textarea textarea-bordered textarea-primary w-full" placeholder="Type a message..." />
-                </div>
-                <div className="flex-none items-baseline justify-end">
-                    <button className="btn btn-primary" type="submit" disabled={isSendDisabled}>Send</button>
-                </div>
-            </form>
+        <div className="flex flex-col h-full justify-between">
+            <div className="flex flex-col h-full flex-grow overflow-y-auto">
+                {messages.map((msg, i) => <ChatSessionMessage message={msg} key={JSON.stringify(msg) + '-' + i} />)}
+            </div>
+            <div className="flex flex-col">
+                <div>Status: {status}</div>
+                <form className="flex flex-row" onSubmit={handleSend}>
+                    <div className="flex-grow">
+                        <textarea id="chat-input" className="textarea textarea-bordered textarea-primary w-full" placeholder="Type a message..." />
+                    </div>
+                    <div className="flex-none items-baseline justify-end">
+                        <button className="btn btn-primary" type="submit" disabled={isSendDisabled}>Send</button>
+                    </div>
+                </form>
+            </div>
         </div>
     )
 }
