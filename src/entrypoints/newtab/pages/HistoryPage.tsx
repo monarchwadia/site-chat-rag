@@ -3,6 +3,7 @@ import { NewtabPageWrapper } from "../components/NewtabPageWrapper";
 import { useAllChatSessions } from "../../../hooks/useDbChatSessions";
 import { useAppSettings } from "../../../hooks/useAppSettings";
 import { ChatHistoryList } from "../../../components/ChatHistoryList";
+import { openSidebarChat } from "../../../utils/openSidebarChat";
 
 type Props = React.PropsWithChildren<{
 
@@ -14,6 +15,7 @@ export const HistoryPage: React.FC<Props> = ({ }) => {
 
     const pinChatSession = async (id: string) => {
         await setPinnedChatSessionId(id);
+        await openSidebarChat();
     }
 
     return (
