@@ -4,7 +4,7 @@ export const openSidebarChat = async () => {
     try {
         const sidebarOpener = new SidebarOpener();
         await sidebarOpener.openSidebar({
-            targetPage: "/chat"
+            targetPage: "/"
         });
     } catch (e) {
         console.error("Could not open sidebar", e);

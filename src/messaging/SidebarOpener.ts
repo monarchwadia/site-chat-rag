@@ -3,7 +3,7 @@ import { retry } from "../utils/retry";
 type MessageListener = Parameters<typeof chrome.runtime.onMessage.addListener>[0];
 
 type OpenSidebarOptions = {
-    targetPage: "/chat"
+    targetPage: "/"
 }
 
 export class SidebarOpener {

@@ -1,8 +1,7 @@
 import React from "react";
 import { RouterProvider, createMemoryRouter, type RouteObject } from "react-router-dom";
-import { SidebarHomePage } from "./pages/SidebarHomePage";
-import { SidebarChatPage } from "./pages/SidebarChatPage";
 import { SidebarRoutesWrapper } from "./components/SidebarRoutesWrapper";
+import { SidebarHomePage } from "./pages/SidebarHomePage";
 
 const routes: RouteObject[] = [
     {
@@ -12,10 +11,6 @@ const routes: RouteObject[] = [
             {
                 path: "/",
                 element: <SidebarHomePage />,
-            },
-            {
-                path: "/chat",
-                element: <SidebarChatPage />
             }
         ]
     }
